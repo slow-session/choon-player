@@ -12,14 +12,14 @@ This includes the Choon Player on your WordPress site. To display the player, pu
 
 == Installation ==
 
-1. Upload the zipfile in Code tab this archive to the `/wp-content/plugins/` directory.
+1. Upload the zipfile from the green 'Code' tab for this archive to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 
 = Where can this be used? =
 
-Anywhere that shortcodes are accepted. That is, on pages, post, and widgets. It will not work on comments.
+Anywhere that shortcodes are accepted. Tested on pages but not on post, and widgets.
 
 = How does it work? =
 
@@ -45,6 +45,6 @@ All the code for that site is available at:
 
 == Upgrade Notice ==
 
-= 1.0.0 =
+= 0.0.1 =
 * Initial version
 
