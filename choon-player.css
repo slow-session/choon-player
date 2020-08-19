@@ -1,0 +1,189 @@
+/*
+ * Styling for Wordpress plugin
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+.audioParent {
+    max-width: 80%;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.audioChild {
+    flex: 1 auto;
+}
+
+.mp3AudioControl {
+    width: 100%;
+    margin-top: 1.5rem;
+    float: left;
+}
+
+.mp3LoopControl {
+    margin-top: 1.5rem;
+    width: 100%;
+    float: left;
+    display: flex;
+    flex-flow: flow wrap;
+    justify-content: space-around;
+}
+
+.mp3SpeedControl {
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    float: left;
+}
+
+.playButton {
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: url("/wp-content/local/simpleplayer/play.png") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    padding: 0;
+    outline: none;
+}
+
+.pauseButton {
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: url("/wp-content/local/simpleplayer/pause.png") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    padding: 0;
+    outline: none;
+}
+
+p.audioLabel {
+    clear: left;
+    font-size: small;
+    text-align: center;
+}
+
+p.mp3SpeedLabel {
+    margin-top: 24px;
+    clear: left;
+    font-size: small;
+    text-align: center;
+}
+
+
+.player audio {
+    width: 70%;
+}
+
+.loopButton {
+    background-color: darkslategray !important;
+    cursor: pointer !important;
+    padding: 5px !important;
+    border-radius: 8px !important;
+    font-size: 75% !important;
+    margin-top: 0.5rem;
+    
+}
+// END: controls for audio and ABC players
+
+
+.noUi-target {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.noUi-horizontal {
+    border-radius: 50%;
+    height: 0.8rem;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 1rem;
+    height: 2.2rem;
+    left: -8px;
+    top: -6px;
+}
+
+html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
+    right: -10px;
+    left: auto;
+}
+
+.noUi-handle {
+    border: 1px solid #D9D9D9;
+    border-radius: 3px;
+    background: darkslategray;
+    cursor: default;
+}
+
+.noUi-handle::before,
+.noUi-handle::after {
+    background: none;
+}
+
+.noUi-tooltip {
+    display: block;
+    position: absolute;
+    border: 0 solid #D7D7D7;
+    border-radius: 8px;
+    background: transparent;
+    color: darkslategray;
+    padding: 0 0.1rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.noUi-horizontal .noUi-tooltip {
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 190%);
+    left: 50%;
+    bottom: 120%;
+    font-size: small;
+    padding: 0.1rem;
+    z-index: -1;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 1rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: darkslategray;
+    cursor: pointer;
+}
+
+.noUi-horizontal .noUi-handle[data-handle='1'] {
+    width: 1rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: green;
+    cursor: pointer;
+}
+
+.noUi-horizontal .noUi-handle[data-handle='1'] .noUi-tooltip {
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 20%);
+    left: 50%;
+    bottom: 120%;
+    font-size: small;
+    padding: 0.3rem;
+    z-index: -1;
+}
+
+.noUi-connects,
+.noUi-connect {
+    background: slategray;
+    border-radius: 50%;
+    border: none;
+}
