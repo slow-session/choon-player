@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Choon Player
-Plugin URI: https://wellington.session.nz/
-Description: Play tunes with loop and slow down options - for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>. Derived from the code used on the Wellington Session website at https://wellington.session.nz
+Plugin URI: https://github.com/slow-session/choon-player
+Description: Play tunes with loop and slow down options - for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>.
 Version: 1.0.0
 Author: Andy Linton
-Author URI: https://wellington.session.nz/
+Author URI: https://github.com/asjl
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
