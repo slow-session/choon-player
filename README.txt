@@ -12,7 +12,7 @@ This includes the Choon Player on your WordPress site. To display the player, pu
 
 == Installation ==
 
-1. Upload the zipfile in Code tab this archive to the `/wp-content/plugins/` directory.
+1. Upload the zipfile in this archive to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
@@ -37,9 +37,7 @@ At this stage, none!
 
 Special thanks to Paul Rosen. The Wordpress plugin parts of this code were based on his ABC Notation plugin. Any bug/features are all my own work!
 
-This code was based on the player used the Wellington Irish Session website. See https://wellington.session.nz 
-
-All the code for that site is available at:
+This code was based on the player used the Wellington Irish Session website. See https://wellington.session.nz - all the code for that site is available at:
 
     https://github.com/slow-session/wellington.session.nz
 

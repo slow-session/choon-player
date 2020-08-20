@@ -58,7 +58,7 @@ function choon_conditionally_load_resources( $posts ) {
 		$plugin_url = plugin_dir_url( __FILE__ );
 	    
 		wp_enqueue_style( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css' );
-	        wp_enqueue_style( 'choon-css', $plugin_url . 'choon-player.css' );
+	        wp_enqueue_style( 'choon', $plugin_url . 'choon-player.css' );
 	}
 
 	return $posts;

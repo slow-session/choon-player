@@ -1,15 +1,11 @@
 /*
- * Styling for Wordpress plugin
+ * Styling for Choon Player Wordpress plugin
  */
-
-* {
-    box-sizing: border-box;
-}
 
 .audioParent {
     max-width: 80%;
     margin: auto;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .audioChild {
@@ -39,10 +35,10 @@
 }
 
 .playButton {
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
     border: none;
-    background: url("/wp-content/local/simpleplayer/play.png") !important;
+    background: url("/wp-content/plugins/choon-player/play.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
     display: block;
@@ -54,10 +50,10 @@
 }
 
 .pauseButton {
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
     border: none;
-    background: url("/wp-content/local/simpleplayer/pause.png") !important;
+    background: url("/wp-content/plugins/choon-player/pause.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
     display: block;
@@ -68,35 +64,19 @@
     outline: none;
 }
 
-p.audioLabel {
-    clear: left;
-    font-size: small;
-    text-align: center;
-}
-
-p.mp3SpeedLabel {
-    margin-top: 24px;
-    clear: left;
-    font-size: small;
-    text-align: center;
-}
-
-
-.player audio {
-    width: 70%;
-}
 
 .loopButton {
     background-color: darkslategray !important;
     cursor: pointer !important;
-    padding: 5px !important;
-    border-radius: 8px !important;
+    padding: 0.3rem !important;
+    border-radius: 0.5rem !important;
     font-size: 75% !important;
     margin-top: 0.5rem;
     
 }
-// END: controls for audio and ABC players
+/* END: controls for audio and ABC players */
 
+/* START Override slider defaults */
 
 .noUi-target {
     background: none;
@@ -109,21 +89,19 @@ p.mp3SpeedLabel {
     height: 0.8rem;
 }
 
-.noUi-horizontal .noUi-handle {
-    width: 1rem;
-    height: 2.2rem;
-    left: -8px;
-    top: -6px;
+.noUi-horizontal .noUi-origin {
+    height: 0;
+    width: 9.8%;
 }
 
 html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
-    right: -10px;
+    right: inherit;
     left: auto;
 }
 
 .noUi-handle {
-    border: 1px solid #D9D9D9;
-    border-radius: 3px;
+    border: 1px solid slategrey;
+    border-radius: 0.2rem;
     background: darkslategray;
     cursor: default;
 }
@@ -136,7 +114,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .noUi-tooltip {
     display: block;
     position: absolute;
-    border: 0 solid #D7D7D7;
+    border: 0 solid darkslategrey;
     border-radius: 8px;
     background: transparent;
     color: darkslategray;
@@ -151,7 +129,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     left: 50%;
     bottom: 120%;
     font-size: small;
-    padding: 0.1rem;
+    padding: 0.2rem;
     z-index: -1;
 }
 
@@ -187,3 +165,5 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     border-radius: 50%;
     border: none;
 }
+
+/* END: Override Slider defaults */

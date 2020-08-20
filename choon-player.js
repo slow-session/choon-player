@@ -103,8 +103,8 @@ function createSliders(tuneID) {
             postfix: ' %'
         })],
         range: {
-            'min': 58,
-            'max': 142
+            'min': 51,
+            'max': 121
         }
     });
 
