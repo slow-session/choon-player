@@ -41,7 +41,7 @@
     background: url("/wp-content/plugins/choon-player/play.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
-    display: block;
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
@@ -56,7 +56,7 @@
     background: url("/wp-content/plugins/choon-player/pause.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
-    display: block;
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
