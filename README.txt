@@ -12,14 +12,18 @@ This includes the Choon Player on your WordPress site. To display the player, pu
 
 == Installation ==
 
+<<<<<<< HEAD
 1. Upload the zipfile in this archive to the `/wp-content/plugins/` directory.
+=======
+1. Upload the zipfile from the green 'Code' tab for this archive to the `/wp-content/plugins/` directory.
+>>>>>>> 1e401098a9e6cfac3fa3b52540dc6bf14314dbf7
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 
 = Where can this be used? =
 
-Anywhere that shortcodes are accepted. That is, on pages, post, and widgets. It will not work on comments.
+Anywhere that shortcodes are accepted. Tested on pages but not on post, and widgets.
 
 = How does it work? =
 
@@ -43,6 +47,6 @@ This code was based on the player used the Wellington Irish Session website. See
 
 == Upgrade Notice ==
 
-= 1.0.0 =
+= 0.0.1 =
 * Initial version
 
