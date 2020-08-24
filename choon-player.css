@@ -9,7 +9,7 @@
 }
 
 .audioChild {
-    flex: 1 auto;
+    flex: 1 auto;	    
 }
 
 .mp3AudioControl {
@@ -71,7 +71,7 @@
     padding: 0.3rem !important;
     border-radius: 0.5rem !important;
     font-size: 75% !important;
-    margin-top: 0.5rem;
+    margin-top: 0.5rem;
     
 }
 /* END: controls for audio and ABC players */

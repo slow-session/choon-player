@@ -29,52 +29,43 @@ var CurrentAudioSlider = null;
 
 
 function createAudioPlayer() {
-    var pagePlayer = `
+    var audioPlayer = `
 <!-- declare an Audio Player for this page-->
 <audio id="OneAudioPlayer">
     <source id="mp3Source" type="audio/mp3"></source> 
     Your browser does not support the audio format.
 </audio>`;
 
-    return (pagePlayer);
+    return (audioPlayer);
 }
 
 function createMP3player(tuneID, mp3url) {
     // build the MP3 player for each tune
     var mp3player = `
+<!-- MP3 player -->
 <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
     <div id="audioPlayer-${tuneID}" class="audioParent">
-        <div class="audioChild">
-            <!-- audio slider -->
-            <div class="audio">
-                <span title="Play tune, select loop starting point, then select loop end point">
-                    <div id="positionMP3-${tuneID}" "class="mp3AudioControl"></div>
-                </span>
-            </div>
-        </div>
-        <div class="audioChild">
-            <div class="mp3LoopControl">
-                <span title="Play tune, select loop starting point, then select loop end point">
-                    <input type="button" class="loopButton" id="LoopStart" value=" Loop Start " onclick="setFromSlider()" />
-                    <input type="button" class="loopButton" id="LoopEnd" value=" Loop End " onclick="setToSlider()" />
-                    <input type="button" class="loopButton" id="Reset" value=" Reset " onclick="resetFromToSliders()" />
-                </span>
-            </div>
+        <!-- audio slider -->
+        <div id="positionMP3-${tuneID}" "class="mp3AudioControl"></div>
+	<!-- loop control -->
+	<div class="mp3LoopControl">
+            <span title="Play tune, select loop starting point, then select loop end point">
+                <input type="button" class="loopButton" id="LoopStart" value=" Loop Start " onclick="setFromSlider()" />
+                <input type="button" class="loopButton" id="LoopEnd" value=" Loop End " onclick="setToSlider()" />
+                <input type="button" class="loopButton" id="Reset" value=" Reset " onclick="resetFromToSliders()" />
+            </span>
         </div>
         <!-- speed slider -->
-        <div class="audioChild">
-            <div id="speedControl-${tuneID}" class="mp3SpeedControl">
-                <span title="Adjust playback speed with slider">
-                    <div id="speedSliderMP3-${tuneID}"></div>
-                </span>
-            </div>
+        <div id="speedControl-${tuneID}" class="mp3SpeedControl">
+            <span title="Adjust playback speed with slider">
+                <div id="speedSliderMP3-${tuneID}"></div>
+            </span>
         </div>                
         <!-- play button -->
-        <div class="audioChild">
-            <button id="playMP3-${tuneID}" class="playButton" onclick="playAudio(${tuneID}, '${mp3url}')"></button>
-        </div>
+        <button id="playMP3-${tuneID}" class="playButton" onclick="playAudio(${tuneID}, '${mp3url}')"></button>
     </div>
-</form>`;
+</form>
+<!-- END of MP3player -->`;
 
     return (mp3player);
 }
@@ -82,7 +73,6 @@ function createMP3player(tuneID, mp3url) {
 function createSliders(tuneID) {
     var audioSlider = document.getElementById(`positionMP3-${tuneID}`);
     var speedSlider = document.getElementById(`speedSliderMP3-${tuneID}`);
-
 
     noUiSlider.create(audioSlider, {
         start: [0, 0, 100],
@@ -121,6 +111,17 @@ function createSliders(tuneID) {
             OneAudioPlayer.currentTime = values[1];
         }
     });
+    audioSlider.noUiSlider.on('start', function (value) {
+        OneAudioPlayer.onplaying = function () {
+            OneAudioPlayer.pause();
+        };
+    });
+    audioSlider.noUiSlider.on('end', function (value) {
+        OneAudioPlayer.onplaying = function () {
+            OneAudioPlayer.play();
+        };
+    });
+
     speedSlider.noUiSlider.on('change', function (value) {
         //myDebug("playbackRate: " + value / 100);
         OneAudioPlayer.playbackRate = value / 100;
@@ -132,16 +133,6 @@ function createSliders(tuneID) {
         };
     });
     speedSlider.noUiSlider.on('end', function (value) {
-        OneAudioPlayer.onplaying = function () {
-            OneAudioPlayer.play();
-        };
-    });
-    audioSlider.noUiSlider.on('start', function (value) {
-        OneAudioPlayer.onplaying = function () {
-            OneAudioPlayer.pause();
-        };
-    });
-    audioSlider.noUiSlider.on('end', function (value) {
         OneAudioPlayer.onplaying = function () {
             OneAudioPlayer.play();
         };
@@ -161,8 +152,10 @@ function playAudio(tuneID, audioSource) {
                 }
             }
             PreviouspButton = playButton;
-
-            LoadAudio(audioSource, playPosition);
+	    OneAudioPlayer.src = audioSource;
+	    playPosition.noUiSlider.updateOptions(
+	        {tooltips: [true, true, true],});
+	    CurrentAudioSlider = playPosition;
 
             OneAudioPlayer.onloadedmetadata = function () {
                 initialiseAudioSlider();
@@ -188,7 +181,6 @@ function playAudio(tuneID, audioSource) {
         }
         playButton.className = "";
         playButton.className = "pauseButton";
-
     } else {
         OneAudioPlayer.pause();
         playButton.className = "";
@@ -199,12 +191,6 @@ function playAudio(tuneID, audioSource) {
 
 function LoadAudio(audioSource, playPosition) {
     //myDebug("Loading: " + audioSource)
-    OneAudioPlayer.src = audioSource;
-  
-    playPosition.noUiSlider.updateOptions({
-        tooltips: [true, true, true],
-    });
-    CurrentAudioSlider = playPosition;
 }
 
 function initialiseAudioSlider() {
