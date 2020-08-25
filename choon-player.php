@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Choon Player
-Plugin URI: https://github.com/slow-session/choon-player
+Version: 0.0.1
 Description: Play tunes with loop and slow down options - for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>.
-Version: 1.0.0
+Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
 Author URI: https://github.com/asjl
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -84,19 +84,6 @@ function process_choon( $content ) {
 	return $content2;
 }
 
-// If a URL was passed in, then read the string from that, otherwise read the string from the contents.
-function get_choon_string( $file, $content) {
-	if ($file) {
-		$content2 = file_get_contents( $file );
-		$content2 = preg_replace("&\r\n&", "\x01", $content2);
-		$content2 = preg_replace("&\n&", "\x01", $content2);
-		$content2 = peg_replace("-'-", "\\\'", $content2);
-		$content2 = preg_replace("-\"-", "\\\"", $content2);
-	} else
-		$content2 = process_choon($content);
-	return $content2;
-}
-
 function construct_audioplayer_divs() {
 	$output = '<!-- Choon Player code -->'  . "\n";
 	$output .= '<div id="audioPlayer"></div>' . "\n";
@@ -108,20 +95,18 @@ function construct_audioplayer_divs() {
 //
 //-- Interpret the [choon] shortcode
 //
-function choon_create_music( $atts, $content ) {
-	$a = shortcode_atts( array(
-		'class' => '',
-		'parser' => '{}',
-		'engraver' => '{}',
-		'render' => '{}',
-		'file' => '',
-		'number_of_tunes' => '1'
-	), $atts );
+function choon_create_player( $atts = [], $content ) {
 
-	$content2 = get_choon_string($a['file'], $content);
+	$content2 = process_choon($content);
 
+        // create the divs for the player
 	$output = construct_audioplayer_divs();
+    
+        // if we ever want to have more than one player on the page
+	// we'll need to have more than one 'id' - later...
 	$id = '100';
+    
+        // the [choon] tag is used to pass in this URL
         $url = filter_var($content2, FILTER_SANITIZE_URL);
 
 	$output .= '<script type="text/javascript">' .
@@ -135,5 +120,6 @@ function choon_create_music( $atts, $content ) {
 
 	return $output;
 }
-add_shortcode( 'choon', 'choon_create_music' );
+add_shortcode( 'choon', 'choon_create_player' );
 
+?>

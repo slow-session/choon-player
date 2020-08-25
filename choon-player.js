@@ -102,11 +102,9 @@ function createSliders(tuneID) {
         if (handle === 0) {
             BeginLoopTime = values[0];
             EndLoopTime = assignEndLoopTime(values[2]);
-            saveUserLoop(values);
         } else if (handle === 2) {
             BeginLoopTime = values[0];
             EndLoopTime = assignEndLoopTime(values[2]);
-            saveUserLoop(values);
         } else if (handle === 1) {
             OneAudioPlayer.currentTime = values[1];
         }
@@ -173,18 +171,18 @@ function playAudio(tuneID, audioSource) {
 
         OneAudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
 
-        var promise = OneAudioPlayer.play();
-        if (promise) {
-            promise.catch(function (error) {
+        playButton.className = "";
+        playButton.className = "pauseButton";
+        var playPromise = OneAudioPlayer.play();
+        if (playPromise) {
+            playPromise.catch(function (error) {
                 console.error(error);
             });
         }
-        playButton.className = "";
-        playButton.className = "pauseButton";
     } else {
-        OneAudioPlayer.pause();
         playButton.className = "";
         playButton.className = "playButton";
+        OneAudioPlayer.pause();
     }
 
 }
