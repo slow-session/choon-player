@@ -1,10 +1,10 @@
 Choon Player
 ============
 
-Contributors: asjl
-Tags: music choon loop slow-down
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+    Contributors: asjl
+    Tags: music choon loop slow-down
+    License: GPLv2 or later
+    License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Include an audio player that supports loops and slowing down music in a WordPress site by simply specifying the URL of the music.
 
