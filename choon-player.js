@@ -2,17 +2,13 @@
  * Audio controls for the browser audio player
  *
  * Version: 2.0
- * Date: 11 Jan 2017
- *
- * Developed as part of websites for https://dev.session.nz
- * by Ted Cizadlo and Andy Linton
- * Code available at:
- * https://github.com/slow-session/dev.session.nz/blob/master/js/audioID_controls.js
- * Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) Licence.
+ * Date: 12 September 2020
  */
 
+ "use strict";
+
 /*
- ################################################################################
+ ###############################################################################
  #
  # Comment out the line with "console.log" to turn off console logging
  #
@@ -185,10 +181,6 @@ function playAudio(tuneID, audioSource) {
         OneAudioPlayer.pause();
     }
 
-}
-
-function LoadAudio(audioSource, playPosition) {
-    //myDebug("Loading: " + audioSource)
 }
 
 function initialiseAudioSlider() {
