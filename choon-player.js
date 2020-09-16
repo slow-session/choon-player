@@ -5,7 +5,7 @@
  * Date: 12 September 2020
  */
 
- "use strict";
+"use strict";
 
 /*
  ###############################################################################
@@ -146,10 +146,11 @@ function playAudio(tuneID, audioSource) {
                 }
             }
             PreviouspButton = playButton;
-	    OneAudioPlayer.src = audioSource;
-	    playPosition.noUiSlider.updateOptions(
-	        {tooltips: [true, true, true],});
-	    CurrentAudioSlider = playPosition;
+            OneAudioPlayer.src = audioSource;
+            playPosition.noUiSlider.updateOptions({
+                tooltips: [true, true, true],
+            });
+            CurrentAudioSlider = playPosition;
 
             OneAudioPlayer.onloadedmetadata = function () {
                 initialiseAudioSlider();

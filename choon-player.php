@@ -46,48 +46,30 @@ function choon_conditionally_load_resources( $posts ) {
 	}
 
 	if ( $has_choon ) {
-	    
-	        // See https://cdnjs.com/libraries/noUiSlider
-	        wp_enqueue_script( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js');
+	    // See https://cdnjs.com/libraries/noUiSlider
+	    wp_enqueue_script( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js');
 	      
-	        // See https://cdnjs.com/libraries/wnumb
-	        wp_enqueue_script( 'wNumb', 'https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js');
+	    // See https://cdnjs.com/libraries/wnumb
+	    wp_enqueue_script( 'wNumb', 'https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js');
 
 		wp_enqueue_script( 'choon-plugin', plugins_url( '/choon-player.js', __FILE__ ));
 
 		$plugin_url = plugin_dir_url( __FILE__ );
-	    
-		wp_enqueue_style( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css' );
-	        wp_enqueue_style( 'choon', $plugin_url . 'choon-player.css' );
+        
+        // See https://cdnjs.com/libraries/noUiSlider
+        wp_enqueue_style( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css' );
+        
+	    wp_enqueue_style( 'choon', $plugin_url . 'choon-player.css' );
 	}
 
 	return $posts;
 }
-
 add_filter( 'the_posts', 'choon_conditionally_load_resources' );
-
-// This turns the shortcode parameter back into the originally pasted string.
-function process_choon( $content ) {
-	$content2 = preg_replace("&<br />\r\n&", "\x01", $content);
-	$content2 = preg_replace("&<br />\n&", "\x01", $content2);
-	$content2 = preg_replace("&<br>\r\n&", "\x01", $content2);
-	$content2 = preg_replace("&<br>\n&", "\x01", $content2);
-	$content2 = preg_replace("&\r\n&", "\x01", $content2);
-	$content2 = preg_replace("&\n&", "\x01", $content2);
-	$content2 = preg_replace("-\"-", "\\\"", $content2);
-	$content2 = preg_replace("-&#8221;-", "\\\"", $content2);
-	$content2 = preg_replace("-&#8222;-", "\\\"", $content2);
-	$content2 = preg_replace("-&#8217;-", "'", $content2);
-	$content2 = preg_replace("-&#8243;-", "\\\"", $content2);
-	$content2 = preg_replace("-&#8220;-", "\\\"", $content2);
-	$content2 = preg_replace("-'-", "\\\'", $content2);
-	return $content2;
-}
 
 function construct_audioplayer_divs() {
 	$output = '<!-- Choon Player code -->'  . "\n";
 	$output .= '<div id="audioPlayer"></div>' . "\n";
-    	$output .= '<div id="showPlayer"></div>' . "\n";
+    $output .= '<div id="showPlayer"></div>' . "\n";
 
 	return $output;
 }
@@ -96,27 +78,24 @@ function construct_audioplayer_divs() {
 //-- Interpret the [choon] shortcode
 //
 function choon_create_player( $atts = [], $content ) {
+    // the [choon] tag is used to pass in this URL
+    $url = filter_var($content, FILTER_SANITIZE_URL);
 
-	$content2 = process_choon($content);
-
-        // create the divs for the player
+    // create the divs for the player
 	$output = construct_audioplayer_divs();
     
-        // if we ever want to have more than one player on the page
+    // if we ever want to have more than one player on the page
 	// we'll need to have more than one 'id' - later...
 	$id = '100';
     
-        // the [choon] tag is used to pass in this URL
-        $url = filter_var($content2, FILTER_SANITIZE_URL);
-
 	$output .= '<script type="text/javascript">' .
-            'window.onload = function () {' .
+    'window.onload = function () {' .
 	  	'audioPlayer.innerHTML = createAudioPlayer();' .
 		'showPlayer.innerHTML = createMP3player("' . $id . '", "' . $url . '");' .
 		'createSliders("' . $id . '");' .
-                '};' .
-	    '</script>' . "\n";
-        $output .= '<!-- End of Choon Player code -->';
+    '};' .
+	'</script>' . "\n";
+    $output .= '<!-- End of Choon Player code -->';
 
 	return $output;
 }
