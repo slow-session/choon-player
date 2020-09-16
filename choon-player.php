@@ -74,6 +74,8 @@ function construct_audioplayer_divs() {
 	return $output;
 }
 
+$tune_found = false;
+
 //
 //-- Interpret the [choon] shortcode
 //
@@ -81,8 +83,12 @@ function choon_create_player( $atts = [], $content ) {
     // the [choon] tag is used to pass in this URL
     $url = filter_var($content, FILTER_SANITIZE_URL);
 
-    // create the divs for the player
-	$output = construct_audioplayer_divs();
+    global $tune_found;
+    if ($tune_found == false) {
+        // create the divs for the player
+        $output = construct_audioplayer_divs();
+    }
+    $tune_found = true;
     
     // if we ever want to have more than one player on the page
 	// we'll need to have more than one 'id' - later...
