@@ -13,7 +13,7 @@ Description
 
 This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post. There's a screenshot of the player in this archive. It's visible at:
 
-    https://github.com/slow-session/choon-player/blob/master/ChoonPlayerScreenshot.png
+https://github.com/slow-session/choon-player/blob/master/ChoonPlayerScreenshot.png
 
 Installation
 ------------
@@ -54,7 +54,7 @@ Special thanks to Paul Rosen for all his work on abcjs. The Wordpress plugin par
 
 This code was based on the player used the Wellington Irish Session website. See https://wellington.session.nz - all the code for that site is available at:
 
-    https://github.com/slow-session/wellington.session.nz
+https://github.com/slow-session/wellington.session.nz
 
 Upgrade Notice
 --------------
