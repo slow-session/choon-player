@@ -2,7 +2,7 @@
 Contributors: asjl
 Donate link: https://www.irishmusic.org.nz/make-a-donation/
 Tags: music choon loop slow-down
-Requires at least: 4.7
+Requires at least: 5.5
 Tested up to: 5.5
 Stable tag: trunk
 Requires PHP: 7.0
@@ -16,9 +16,8 @@ Include an audio player that supports loops and slowing down music in a WordPres
 This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post. 
 
 == Screenshots ==
-There's a screenshot of the player in this archive. It's visible at:
 
-https://github.com/slow-session/choon-player/blob/master/ChoonPlayerScreenshot.png
+1. ChoonPlayerScreenshot.png
 
 == Installation ==
 
@@ -48,7 +47,7 @@ At this stage, none!
 
 == Thanks ==
 
-Special thanks to Paul Rosen for all his work on abcjs. The Wordpress plugin parts of this code were based on his ABC Notation plugin. Any bug/features are all my own work!
+Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his ABC Notation plugin. Any bug/features are all my own work!
 
 This code was based on the player used the Wellington Irish Session website. See https://wellington.session.nz - all the code for that site is available at:
 
@@ -64,3 +63,8 @@ https://github.com/slow-session/wellington.session.nz
 
 = 0.0.3 =
 * Now supports more than one tune per page - lots of tunes on the same page are not a good idea!
+
+== Upgrade Notice ==
+
+= 0.0.3 =
+* Initial release
