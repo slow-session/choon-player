@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Choon Player
-Version: 0.0.1
+Version: 0.0.3
 Description: Play tunes with loop and slow down options - for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>.
 Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
