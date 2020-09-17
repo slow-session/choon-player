@@ -33,48 +33,49 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //-- Add the javascript and css if there is a shortcode on the page.
 //
 function choon_conditionally_load_resources( $posts ) {
-
-	if ( empty( $posts ) ) {
-		return $posts;
-	}
-	$has_choon = false;
-	foreach ( $posts as $post ) {
-		if ( stripos( $post->post_content, '[choon' ) !== false ) {
-			$has_choon = true;
-			break;
-		}
-	}
-
-	if ( $has_choon ) {
-	    // See https://cdnjs.com/libraries/noUiSlider
-	    wp_enqueue_script( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js');
-	      
-	    // See https://cdnjs.com/libraries/wnumb
-	    wp_enqueue_script( 'wNumb', 'https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js');
-
-		wp_enqueue_script( 'choon-plugin', plugins_url( '/choon-player.js', __FILE__ ));
-
-		$plugin_url = plugin_dir_url( __FILE__ );
-        
-        // See https://cdnjs.com/libraries/noUiSlider
-        wp_enqueue_style( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css' );
-        
-	    wp_enqueue_style( 'choon', $plugin_url . 'choon-player.css' );
-	}
-
+    if ( empty( $posts ) ) {
 	return $posts;
+    }
+    $has_choon = false;
+    foreach ( $posts as $post ) {
+	if ( stripos( $post->post_content, '[choon' ) !== false ) {
+	    $has_choon = true;
+	    break;
+	}
+    }
+
+    if ( $has_choon ) {
+	// See https://cdnjs.com/libraries/noUiSlider
+	wp_enqueue_script( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js');
+	      
+	// See https://cdnjs.com/libraries/wnumb
+	wp_enqueue_script( 'wNumb', 'https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js');
+
+	wp_enqueue_script( 'choon-plugin', plugins_url( '/choon-player.js', __FILE__ ));
+
+	$plugin_url = plugin_dir_url( __FILE__ );
+        
+	// See https://cdnjs.com/libraries/noUiSlider
+	wp_enqueue_style( 'noUiSlider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css' );
+        
+	wp_enqueue_style( 'choon', $plugin_url . 'choon-player.css' );
+	
+    }
+
+    return $posts;
 }
 add_filter( 'the_posts', 'choon_conditionally_load_resources' );
 
-function construct_audioplayer_divs() {
-	$output = '<!-- Choon Player code -->'  . "\n";
-	$output .= '<div id="audioPlayer"></div>' . "\n";
-    $output .= '<div id="showPlayer"></div>' . "\n";
-
-	return $output;
+function construct_audioplayer() {
+    $output = '<!-- Start of Choon audioPlayer code -->'  . "\n";
+    $output .= '<div id="choonAudioPlayer"></div>' . "\n";
+    $output .='<script type="text/javascript">' .
+'choonAudioPlayer.innerHTML = createAudioPlayer();' .
+'</script>' . "\n";
+    $output .= '<!-- End of Choon audioPlayer code -->'  . "\n";
+    
+    return $output;
 }
-
-$tune_found = false;
 
 //
 //-- Interpret the [choon] shortcode
@@ -83,27 +84,24 @@ function choon_create_player( $atts = [], $content ) {
     // the [choon] tag is used to pass in this URL
     $url = filter_var($content, FILTER_SANITIZE_URL);
 
-    global $tune_found;
-    if ($tune_found == false) {
-        // create the divs for the player
-        $output = construct_audioplayer_divs();
+    static $tune_id = 0;
+    if ($tune_id == 0) {
+	// create the audioplayer once
+	$output = construct_audioplayer();
     }
-    $tune_found = true;
-    
-    // if we ever want to have more than one player on the page
-	// we'll need to have more than one 'id' - later...
-	$id = '100';
-    
-	$output .= '<script type="text/javascript">' .
-    'window.onload = function () {' .
-	  	'audioPlayer.innerHTML = createAudioPlayer();' .
-		'showPlayer.innerHTML = createMP3player("' . $id . '", "' . $url . '");' .
-		'createSliders("' . $id . '");' .
-    '};' .
-	'</script>' . "\n";
-    $output .= '<!-- End of Choon Player code -->';
+    $tune_id++;
+  
+    // Make a new div for each tune on a page
+    // Lots of players on a page are not a good idea!
+    $output .= '<!-- Start of Choon MP3 Player code -->';
+    $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
+    $output .= '<script type="text/javascript">' .
+'choonMP3Player' . $tune_id . '.innerHTML = createMP3player("' . $tune_id . '", "' . $url . '");' .
+'createSliders("' . $tune_id . '");' .
+'</script>' . "\n";
+    $output .= '<!-- End of Choon MP3 Player code -->';
 
-	return $output;
+    return $output;
 }
 add_shortcode( 'choon', 'choon_create_player' );
 
