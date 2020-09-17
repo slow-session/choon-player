@@ -38,7 +38,7 @@
     height: 2.5rem;
     width: 2.5rem;
     border: none;
-    background: url("/wp-content/plugins/choon-player/play.png") !important;
+    background: url("/wp-content/plugins/choon-player/assets/play.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
     display: flex;
@@ -53,7 +53,7 @@
     height: 2.5rem;
     width: 2.5rem;
     border: none;
-    background: url("/wp-content/plugins/choon-player/pause.png") !important;
+    background: url("/wp-content/plugins/choon-player/assets/pause.png") !important;
     background-size: contain !important;
     background-repeat: no-repeat;
     display: flex;
