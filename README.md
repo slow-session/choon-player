@@ -11,7 +11,9 @@ Include an audio player that supports loops and slowing down music in a WordPres
 Description
 -----------
 
-This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
+This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post. There's a screenshot of the player in this archive. It's visible at:
+
+    https://github.com/slow-session/choon-player/blob/master/ChoonPlayerScreenshot.png
 
 Installation
 ------------
