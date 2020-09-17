@@ -61,3 +61,6 @@ Upgrade Notice
 
 = 0.0.2 =
 * Minor tidyup of php code to simplify it
+
+= 0.0.3 =
+* Now supports more than one tune per page - lots of tunes on the same page are not a good idea!
