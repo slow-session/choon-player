@@ -45,21 +45,20 @@ function choon_conditionally_load_resources( $posts ) {
     }
 
     if ( $has_choon ) {
+	// Javascript libraries
 	// See https://cdnjs.com/libraries/noUiSlider
 	wp_enqueue_script( 'noUiSlider', plugins_url( '/js/nouislider.min.js', __FILE__));
-	      
 	// See https://cdnjs.com/libraries/wnumb
 	wp_enqueue_script( 'wNumb', plugins_url( '/js/wNumb.min.js', __FILE__ ));
+	// The choon-player code
+	wp_enqueue_script( 'choon', plugins_url( '/js/choon-player.js', __FILE__ ));
 
-	wp_enqueue_script( 'choon-plugin', plugins_url( '/js/choon-player.js', __FILE__ ));
-
+	// CSS files
 	$plugin_url = plugin_dir_url( __FILE__ );
-        
 	// See https://cdnjs.com/libraries/noUiSlider
 	wp_enqueue_style( 'noUiSlider', $plugin_url .'css/nouislider.min.css' );
-        
+        // The choon-layer CSS
 	wp_enqueue_style( 'choon', $plugin_url . 'css/choon-player.css' );
-	
     }
 
     return $posts;

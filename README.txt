@@ -2,26 +2,26 @@
 Contributors: asjl
 Donate link: https://www.irishmusic.org.nz/make-a-donation/
 Tags: music choon loop slow-down
-Requires at least: 5.5
+Requires at least: 5.0
 Tested up to: 5.5
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Include an audio player that supports loops and slowing down music in a WordPress site by simply specifying the URL of the music in a shortcode.
+Include an audio player that supports loops and slowing down music by specifying the URL of the music in a shortcode.
 
 == Description ==
 
-This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post. 
+This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
 
 == Screenshots ==
 
-1. ChoonPlayerScreenshot.png
+1. screenshot-1.png
 
 == Installation ==
 
-1. Upload the zipfile from the green 'Code' tab for this archive to the `/wp-content/plugins/` directory.
+1. Upload the contents of this folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
@@ -49,9 +49,10 @@ At this stage, none!
 
 Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his ABC Notation plugin. Any bug/features are all my own work!
 
-This code was based on the player used the Wellington Irish Session website. See https://wellington.session.nz - all the code for that site is available at:
+The javascript code was based on the player used on the Wellington
+Irish Session website. See: https://wellington.session.nz
 
-https://github.com/slow-session/wellington.session.nz
+All the code for that site is available at: https://github.com/slow-session/wellington.session.nz
 
 == Changelog ==
 

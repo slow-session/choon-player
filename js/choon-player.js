@@ -145,11 +145,11 @@ function choon_playAudio(tuneID, audioSource) {
         if (!AudioPlayer.src.includes(audioSource)) {
             if (AudioPlayer.src != null) { //reset previous audio player
                 if (choon_PreviouspButton != null) {
-                    choon_PreviouspButton.className = "playButton";
+                    choon_PreviouspButton.className = "choon-playButton";
                 }
             }
             choon_PreviouspButton = playButton;
-            AudioPlayer.src = audioSource;
+	    AudioPlayer.src = audioSource;
             playPosition.noUiSlider.updateOptions({
                 tooltips: [true, true, true],
             });
