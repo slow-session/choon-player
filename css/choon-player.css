@@ -2,23 +2,19 @@
  * Styling for Choon Player Wordpress plugin
  */
 
-.audioParent {
+.choon-audioParent {
     max-width: 80%;
     margin: auto;
     margin-top: 2rem;
 }
 
-.audioChild {
-    flex: 1 auto;
-}
-
-.mp3AudioControl {
+.choon-mp3AudioControl {
     width: 100%;
     margin-top: 1.5rem;
     float: left;
 }
 
-.mp3LoopControl {
+.choon-mp3LoopControl {
     margin-top: 1.5rem;
     width: 100%;
     float: left;
@@ -27,14 +23,14 @@
     justify-content: space-around;
 }
 
-.mp3SpeedControl {
+.choon-mp3SpeedControl {
     width: 100%;
     margin-top: 1.5rem;
     margin-bottom: 2rem;
     float: left;
 }
 
-.playButton {
+.choon-playButton {
     height: 2.5rem;
     width: 2.5rem;
     border: none;
@@ -49,7 +45,7 @@
     outline: none;
 }
 
-.pauseButton {
+.choon-pauseButton {
     height: 2.5rem;
     width: 2.5rem;
     border: none;
@@ -65,7 +61,7 @@
 }
 
 
-.loopButton {
+.choon-loopButton {
     background-color: darkslategray !important;
     cursor: pointer !important;
     padding: 0.3rem !important;

@@ -40,25 +40,25 @@ function createMP3player(tuneID, mp3url) {
     var mp3player = `
 <!-- MP3 player -->
 <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
-    <div id="audioPlayer-${tuneID}" class="audioParent">
+    <div id="audioPlayer-${tuneID}" class="choon-audioParent">
         <!-- audio slider -->
-        <div id="positionMP3-${tuneID}" "class="mp3AudioControl"></div>
+        <div id="positionMP3-${tuneID}" "class="choon-mp3AudioControl"></div>
 	<!-- loop control -->
-	<div class="mp3LoopControl">
+	<div class="choon-mp3LoopControl">
             <span title="Play tune, select loop starting point, then select loop end point">
-                <input type="button" class="loopButton" id="LoopStart" value=" Loop Start " onclick="setFromSlider()" />
-                <input type="button" class="loopButton" id="LoopEnd" value=" Loop End " onclick="setToSlider()" />
-                <input type="button" class="loopButton" id="Reset" value=" Reset " onclick="resetFromToSliders()" />
+                <input type="button" class="choon-loopButton" id="LoopStart" value=" Loop Start " onclick="setFromSlider()" />
+                <input type="button" class="choon-loopButton" id="LoopEnd" value=" Loop End " onclick="setToSlider()" />
+                <input type="button" class="choon-loopButton" id="Reset" value=" Reset " onclick="resetFromToSliders()" />
             </span>
         </div>
         <!-- speed slider -->
-        <div id="speedControl-${tuneID}" class="mp3SpeedControl">
+        <div id="speedControl-${tuneID}" class="choon-mp3SpeedControl">
             <span title="Adjust playback speed with slider">
                 <div id="speedSliderMP3-${tuneID}"></div>
             </span>
         </div>                
         <!-- play button -->
-        <button id="playMP3-${tuneID}" class="playButton" onclick="playAudio(${tuneID}, '${mp3url}')"></button>
+        <button id="playMP3-${tuneID}" class="choon-playButton" onclick="playAudio(${tuneID}, '${mp3url}')"></button>
     </div>
 </form>
 <!-- END of MP3player -->`;
@@ -138,7 +138,7 @@ function playAudio(tuneID, audioSource) {
     var playPosition = document.getElementById(`positionMP3-${tuneID}`);
     var speedSlider = document.getElementById(`speedSliderMP3-${tuneID}`);
 
-    if (playButton.className == "playButton") {
+    if (playButton.className == "choon-playButton") {
         if (!OneAudioPlayer.src.includes(audioSource)) {
             if (OneAudioPlayer.src != null) { //reset previous audio player
                 if (PreviouspButton != null) {
@@ -169,7 +169,7 @@ function playAudio(tuneID, audioSource) {
         OneAudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
 
         playButton.className = "";
-        playButton.className = "pauseButton";
+        playButton.className = "choon-pauseButton";
         var playPromise = OneAudioPlayer.play();
         if (playPromise) {
             playPromise.catch(function (error) {
@@ -178,7 +178,7 @@ function playAudio(tuneID, audioSource) {
         }
     } else {
         playButton.className = "";
-        playButton.className = "playButton";
+        playButton.className = "choon-playButton";
         OneAudioPlayer.pause();
     }
 
