@@ -1,4 +1,4 @@
-/*
+ /*
  * Audio controls for the browser audio player
  *
  * Version: 2.0
@@ -237,4 +237,3 @@ function choon_assignEndLoopTime(endLoopValue) {
     }
     return (endLoopValue);
 }
-
