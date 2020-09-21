@@ -68,9 +68,9 @@ add_filter( 'the_posts', 'choon_conditionally_load_resources' );
 
 function choon_construct_audioplayer() {
     $output = '<!-- Start of Choon audioPlayer code -->'  . "\n";
-    $output .= '<div id="choonAudioPlayer"></div>' . "\n";
-    $output .='<script type="text/javascript">' .
-'choonAudioPlayer.innerHTML = createAudioPlayer();' .
+    $output .= '<div id="audioPlayer"></div>' . "\n";
+    $output .='<script type="text/javascript">' . 
+'audioPlayer.innerHTML = choon_createAudioPlayer();' .
 '</script>' . "\n";
     $output .= '<!-- End of Choon audioPlayer code -->'  . "\n";
     
@@ -96,8 +96,8 @@ function choon_create_player( $atts = [], $content ) {
     $output .= '<!-- Start of Choon MP3 Player code -->';
     $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' .
-'choonMP3Player' . $tune_id . '.innerHTML = createMP3player("' . $tune_id . '", "' . $url . '");' .
-'createSliders("' . $tune_id . '");' .
+'choonMP3Player' . $tune_id . '.innerHTML = choon_createMP3player("' . $tune_id . '", "' . $url . '");' .
+'choon_createSliders("' . $tune_id . '");' .
 '</script>' . "\n";
     $output .= '<!-- End of Choon MP3 Player code -->';
 
