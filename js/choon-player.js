@@ -4,9 +4,7 @@
  * Version: 2.0
  * Date: 12 September 2020
  */
-/*
-(function () {
-*/
+
 "use strict";
 
 /*
@@ -24,7 +22,6 @@ var choon_BeginLoopTime = 0;
 var choon_EndLoopTime = 0;
 var choon_PreviouspButton = null;
 var choon_CurrentAudioSlider = null;
-
 
 function choon_createAudioPlayer() {
     var audioPlayer = `
@@ -240,6 +237,4 @@ function choon_assignEndLoopTime(endLoopValue) {
     }
     return (endLoopValue);
 }
-/*
-})();
-*/
+
