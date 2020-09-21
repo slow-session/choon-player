@@ -237,4 +237,3 @@ function choon_assignEndLoopTime(endLoopValue) {
     }
     return (endLoopValue);
 }
-
