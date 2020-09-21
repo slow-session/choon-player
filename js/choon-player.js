@@ -236,3 +236,4 @@ onclick="choon_playAudio(${tuneID}, '${mp3url}')"></button>
          endLoopValue = AudioPlayer.duration;
      }
      return (endLoopValue);
+ }
