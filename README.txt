@@ -21,7 +21,7 @@ This includes the Choon Player on your WordPress site. To display the player, pu
 
 == Installation ==
 
-1. Upload the contents of this folder to the `/wp-content/plugins/` directory.
+1. Upload the contents of this folder to  the `/wp-content/plugins/choon-player/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
@@ -47,7 +47,7 @@ At this stage, none!
 
 == Thanks ==
 
-Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his ABC Notation plugin. Any bug/features are all my own work!
+Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his excellent ABC Notation plugin. Any bugs or features are all my own work!
 
 The javascript code was based on the player used on the Wellington
 Irish Session website. See: https://wellington.session.nz
@@ -65,7 +65,11 @@ All the code for that site is available at: https://github.com/slow-session/well
 = 0.0.3 =
 * Now supports more than one tune per page - lots of tunes on the same page are not a good idea!
 
+= 0.0.4 =
+* Add a 'choon' prefix to function and other variable names to avoid clashes
+* Load additional libraries from local sources
+
 == Upgrade Notice ==
 
-= 0.0.3 =
+= 0.0.4 =
 * Initial release
