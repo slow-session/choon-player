@@ -30,8 +30,7 @@ Not yet!
 
 == Where can this be used? ==
 
-Anywhere that shortcodes are accepted. Tested on pages but not on post
-or widgets using the Neve theme. Some CSS adjustment likely needed with other themes.
+Anywhere that shortcodes are accepted. Tested on pages but not on post or widgets using the Neve theme. Some CSS adjustment likely needed with other themes.
 
 == How does it work? ==
 
