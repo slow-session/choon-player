@@ -13,7 +13,9 @@ Include an audio player that supports loops and slowing down music by specifying
 
 == Description ==
 
-This includes the Choon Player on your WordPress site. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
+Choon Player is a simple audio player that supports loops and slowing down music for learning by ear. It was developed for learning Irish Traditional music. 
+
+To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
 
 == Screenshots ==
 
@@ -68,7 +70,11 @@ All the code for that site is available at: https://github.com/slow-session/well
 * Add a 'choon' prefix to function and other variable names to avoid clashes
 * Load additional libraries from local sources
 
+= 0.0.5 =
+* Minor changes to support Choon Player's addition to the Wordpress
+plugin scheme
+
 == Upgrade Notice ==
 
-= 0.0.4 =
+= 0.0.5 =
 * Initial release
