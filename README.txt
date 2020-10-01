@@ -74,7 +74,12 @@ All the code for that site is available at: https://github.com/slow-session/well
 * Minor changes to support Choon Player's addition to the Wordpress
 plugin scheme
 
+= 0.0.6 =
+* Added support for URLs with non-ASCII characters e.g. accents in
+Irish, Scots Gaelic etc
+
 == Upgrade Notice ==
 
-= 0.0.5 =
-* Initial release
+= 0.0.6 =
+* Added support for URLs with non-ASCII characters e.g. accents in
+Irish, Scots Gaelic etc
