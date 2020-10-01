@@ -80,9 +80,16 @@ function choon_construct_audioplayer() {
 //-- Interpret the [choon] shortcode
 //
 function choon_create_player( $atts = [], $content ) {
+    // php doesn't handle non-ASCII characters at all well
+    // that's a problem for names in Irish (and other languages)
+    // this encodes non-ASCII chars before calling filter_var
+    $path = parse_url($content, PHP_URL_PATH);
+    $encoded_path = array_map('urlencode', explode('/', $path));
+    $content = str_replace($path, implode('/', $encoded_path), $content);
+
     // the [choon] tag is used to pass in this URL
     $url = filter_var($content, FILTER_SANITIZE_URL);
-
+    
     static $tune_id = 0;
     if ($tune_id == 0) {
 	// create the audioplayer once
