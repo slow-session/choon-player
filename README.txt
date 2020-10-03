@@ -78,8 +78,11 @@ plugin scheme
 * Added support for URLs with non-ASCII characters e.g. accents in
 Irish, Scots Gaelic etc
 
+= 0.0.7 =
+* Fixed the link to the "play" and "pause" buttons
+
 == Upgrade Notice ==
 
-= 0.0.6 =
-* Added support for URLs with non-ASCII characters e.g. accents in
-Irish, Scots Gaelic etc
+= 0.0.7 =
+* Fixed the link to the "play" and "pause" buttons
+
