@@ -81,8 +81,12 @@ Irish, Scots Gaelic etc
 = 0.0.7 =
 * Fixed the link to the "play" and "pause" buttons
 
+= 0.0.8 =
+* updated choon-player.js to use "module.exports"
+
 == Upgrade Notice ==
 
-= 0.0.7 =
-* Fixed the link to the "play" and "pause" buttons
+= 0.0.8 =
+* updated choon-player.js to use "module.exports"
+
 

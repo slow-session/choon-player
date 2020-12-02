@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Choon Player
-Version: 0.0.7
+Version: 0.0.8
 Description: Play tunes with loop and slow down options - good for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>.
 Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
@@ -69,7 +69,7 @@ function choon_construct_audioplayer() {
     $output = '<!-- Start of Choon audioPlayer code -->'  . "\n";
     $output .= '<div id="audioPlayer"></div>' . "\n";
     $output .='<script type="text/javascript">' . 
-'audioPlayer.innerHTML = choon_createAudioPlayer();' .
+'audioPlayer.innerHTML = choon.createAudioPlayer();' .
 '</script>' . "\n";
     $output .= '<!-- End of Choon audioPlayer code -->'  . "\n";
     
@@ -102,8 +102,8 @@ function choon_create_player( $atts = [], $content ) {
     $output .= '<!-- Start of Choon MP3 Player code -->';
     $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' .
-'choonMP3Player' . $tune_id . '.innerHTML = choon_createMP3player("' . $tune_id . '", "' . $url . '");' .
-'choon_createSliders("' . $tune_id . '");' .
+'choonMP3Player' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' .
+'choon.createAudioSliders("' . $tune_id . '");' .
 '</script>' . "\n";
     $output .= '<!-- End of Choon MP3 Player code -->';
 
