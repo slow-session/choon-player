@@ -13,9 +13,11 @@ Include an audio player that supports loops and slowing down music by specifying
 
 == Description ==
 
-Choon Player is a simple audio player that supports loops and slowing down music for learning by ear. It was developed for learning Irish Traditional music. 
+Choon Player is a simple audio player that supports loops and slowing down music for learning by ear. It was developed for learning Irish Traditional music. It supports two players:
 
-To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
+1. A player for MP3 files. To display the player, put a valid URL pointing to an MP3 or M4A recording between the shortcodes [choon] and [/choon] on your page or post.
+
+2. A player for ABC notation. To display the player, put valid ABC notation between the shortcodes [choon-abc] and [/choon-abc] on your page or post.
 
 == Screenshots ==
 
@@ -23,8 +25,13 @@ To display the player, put a valid URL pointing to an MP3 or M4A recording betwe
 
 == Installation ==
 
-1. Upload the contents of this folder to  the `/wp-content/plugins/choon-player/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+* Download the WordPress plugin available from https://wordpress.org/plugins/choon-player/
+
+or
+
+* Upload the contents of this folder to  the `/wp-content/plugins/choon-player/` directory.
+
+Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 
@@ -36,11 +43,15 @@ Anywhere that shortcodes are accepted. Tested on pages but not on post or widget
 
 == How does it work? ==
 
-The plugin includes the [choon] JavaScript library. The URL that is put in the shortcode is passed to that library, which places the player on the page instead of the shortcode.
+The plugin includes the [choon] and [choon-abc] JavaScript libraries. The URL or ABC notation that is put in the shortcode is passed to the relevant library, which places the player on the page instead of the shortcode.
 
-= What can be put in the url that is placed in the shortcode? =
+= What can be put in the url that is placed in the [choon] shortcode? =
 
 A pointer to an MP3 file. Other audio formats supported by the HTML5 audio player should also work.
+
+= What can be put in the block of text that is placed in the [choon-abc] shortcode? =
+
+A block of valid ABC text. See https://thesession.org for examples.
 
 = What parameters may be used? =
 
@@ -84,9 +95,13 @@ Irish, Scots Gaelic etc
 = 0.0.8 =
 * updated choon-player.js to use "module.exports"
 
+= 0.1.0 =
+* added support for a simple ABC player with similar features to the MP3 player
+
 == Upgrade Notice ==
 
-= 0.0.8 =
-* updated choon-player.js to use "module.exports"
+= 0.1.0 =
+* added support for a simple ABC player with similar features to the MP3 player
+
 
 

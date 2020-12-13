@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Choon Player
-Version: 0.0.8
-Description: Play tunes with loop and slow down options - good for learning Irish trad. Add a tune for playing on your WordPress site by simply specifying the URL of the tune in the shortcode <strong>[choon]</strong>.
+Version: 0.1.0
+Description: Play tunes in a loop with a slow down option - good for learning Irish trad. Add a tune by pasting a URL pointing to an MP3 recording in a shortcode <strong>[choon]</strong> or by pasting the ABC notation for the tune in the shortcode <strong>[choon-abc]</strong>.
 Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
 Author URI: https://github.com/asjl
@@ -38,10 +38,10 @@ function choon_conditionally_load_resources( $posts ) {
     }
     $has_choon = false;
     foreach ( $posts as $post ) {
-	if ( stripos( $post->post_content, '[choon' ) !== false ) {
+    	if ( stripos( $post->post_content, '[choon' ) !== false ) {
 	    $has_choon = true;
 	    break;
-	}
+        }
     }
 
     if ( $has_choon ) {
@@ -50,14 +50,19 @@ function choon_conditionally_load_resources( $posts ) {
 	wp_enqueue_script( 'noUiSlider', plugins_url( '/js/nouislider.min.js', __FILE__));
 	// See https://cdnjs.com/libraries/wnumb
 	wp_enqueue_script( 'wNumb', plugins_url( '/js/wNumb.min.js', __FILE__ ));
+        // See https://github.com/PencilCode/musical.js
+	wp_enqueue_script( 'musical', plugins_url( '/js/musical.min.js', __FILE__));
+	
 	// The choon-player code
 	wp_enqueue_script( 'choon', plugins_url( '/js/choon-player.js', __FILE__ ));
+	// The choon-abc-player code
+	wp_enqueue_script( 'choon-abc', plugins_url( '/js/choon-abc-player.js', __FILE__ ));
 
 	// CSS files
 	$plugin_url = plugin_dir_url( __FILE__ );
 	// See https://cdnjs.com/libraries/noUiSlider
 	wp_enqueue_style( 'noUiSlider', $plugin_url .'css/nouislider.min.css' );
-        // The choon-layer CSS
+	// The choon-layer CSS
 	wp_enqueue_style( 'choon', $plugin_url . 'css/choon-player.css' );
     }
 
@@ -110,5 +115,28 @@ function choon_create_player( $atts = [], $content ) {
     return $output;
 }
 add_shortcode( 'choon', 'choon_create_player' );
+
+//
+//-- Interpret the [choon-abc] shortcode
+//
+function choon_abc_create_player( $atts = [], $content ) {
+    static $tune_id = 0;
+    $tune_id++;
+  
+    // Make a textarea for each tune
+    $textArea = "choonTextArea" . $tune_id;
+    $output .= '<!-- Start of Choon ABC Player code -->';
+    $output .= '<textarea id="' . $textArea . '" style="display:none;">' . strip_tags($content) . '</textarea>';
+    // Make a new div for each tune on a page
+    $output .= '<div id="choonABCplayer' . $tune_id . '"></div>' . "\n";
+    $output .= '<script type="text/javascript">' . "\n";
+    $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
+    $output .= 'choon_abc.createABCSliders("' . $textArea . '", "' . $tune_id . '");' . "\n";
+    $output .= '</script>' . "\n";
+    $output .= '<!-- End of choon-abc MP3 Player code -->';
+
+    return $output;
+}
+add_shortcode( 'choon-abc', 'choon_abc_create_player' );
 
 ?>

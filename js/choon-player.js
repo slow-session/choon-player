@@ -42,9 +42,9 @@ const choon = (function () {
 <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber">
     <div id="choon-MP3Player-${tuneID}" class="choon-audioParent">
         <!-- audio slider -->
-        <div id="choon-positionMP3-${tuneID}" "class="choon-mp3AudioControl"></div>
+        <div id="choon-positionMP3-${tuneID}" "class="choon-audioControlMP3"></div>
 	    <!-- loop control -->
-	    <div class="choon-mp3LoopControl">
+	    <div class="choon-loopControlMP3">
             <span title="Play tune, select loop starting point, then select loop end point">
                 <input type="button" class="choon-loopButton" id="LoopStart" value=" Loop Start " onclick="choon.setFromSlider()" />
                 <input type="button" class="choon-loopButton" id="LoopEnd" value=" Loop End " onclick="choon.setToSlider()" />
@@ -52,7 +52,7 @@ const choon = (function () {
             </span>
         </div>
         <!-- speed slider -->
-        <div id="choon-speedControl-${tuneID}" class="choon-mp3SpeedControl">
+        <div id="choon-speedControl-${tuneID}" class="choon-speedControl">
             <span title="Adjust playback speed with slider">
                 <div id="choon-speedSliderMP3-${tuneID}"></div>
             </span>
@@ -193,7 +193,7 @@ const choon = (function () {
             AudioPlayer.pause();
         }
     }
-    
+
     function setFromSlider() {
         audioSlider.noUiSlider.setHandle(
             0,
