@@ -235,7 +235,9 @@ const choon_abc = (function () {
          *
          */
         const header = getHeader(tuneABC);
-        const notes = getNotes(tuneABC);
+	
+	// Clean out any lines of lyrics from the ABC (starts with 'w:')
+        const notes = getNotes(tuneABC).match(/^(?!w:).+$/gm).join('\n');
 
         return header + "\n" + unRollABC(notes) + "\n";
     }
@@ -276,30 +278,6 @@ const choon_abc = (function () {
     }
 
     function unRollABC(abcNotes) {
-        /*
-           * Regular expression used to parse ABC - https://regex101.com/ was very helpful in decoding
-           *
-                      
-           ABCString = (?:\[[A-Za-z]:[^\]]*\])|\s+|%[^\n]*|![^\s!:|\[\]]*!|\+[^+|!]*\+|[_<>@^]?"[^"]*"|\[|\]|>+|<+|(?:(?:\^+|_+|=|)[A-Ga-g](?:,+|'+|))|\(\d+(?::\d+){0,2}|\d*\/\d+|\d+\/?|\/+|[xzXZ]|\[?\|:\]?|:?\|:?|::|.
-                      
-           (?:\[[A-Za-z]:[^\]]*\]) matches nothing
-           \s+|%[^\n]* matches spaces
-           [^\s!:|\[\]]*! no matches
-           \+[^+|!]*\+ no matches
-           [_<>@^]?"[^"]*" matches chords
-           \[|\] matches [ or ]
-           [_<>@^]?{[^"]*} matches grace note phrases {...}
-           :?\|:? matches :| or |:
-           (?:(?:\^+|_+|=|)[A-Ga-g](?:,+|'+|)) matches letters A-Ga-g in or out of chords and other words
-           \(\d+(?::\d+){0,2} matches triplet, or quad symbol (3
-           \d*\/\d+ matches fractions i.e. 4/4 1/8 etc
-           \d+\/? matches all single digits
-           \[\d+|\|\d+ matches first and second endings
-           \|\||\|\] matches double bars either || or |]
-           (\|\|)|(\|\])|:\||\|:|\[\d+|\|\d+ matches first and second endings, double bars, and right and left repeats
-                      
-           */
-
         let fEnding = /\|1/g,
             sEnding = /\|2/g,
             lRepeat = /\|:/g,
@@ -492,3 +470,4 @@ const choon_abc = (function () {
 if (typeof module !== "undefined" && module.exports) {
     module.exports = choon_abc;
 }
+
