@@ -102,15 +102,8 @@ Irish, Scots Gaelic etc
 * strip any lyrics from ABC notation (lines that start with 'w:') as
 they mess up tune length calculations
 
-<<<<<<< HEAD
-= 0.1.0 =
-* added support for a simple ABC player with similar features to the MP3 player
-=======
 == Upgrade Notice ==
 
 = 0.1.1 =
 * strip any lyrics from ABC notation (lines that start with 'w:') as
 they mess up tune length calculations
-
-
->>>>>>> 7a1be9e79d849bcb2bf268d687cce779abd64c3f

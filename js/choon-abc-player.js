@@ -470,7 +470,4 @@ const choon_abc = (function () {
 if (typeof module !== "undefined" && module.exports) {
     module.exports = choon_abc;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 7a1be9e79d849bcb2bf268d687cce779abd64c3f
