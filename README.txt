@@ -102,8 +102,10 @@ Irish, Scots Gaelic etc
 * strip any lyrics from ABC notation (lines that start with 'w:') as
 they mess up tune length calculations
 
+= 0.1.2 =
+* fix version number
+
 == Upgrade Notice ==
 
-= 0.1.1 =
-* strip any lyrics from ABC notation (lines that start with 'w:') as
-they mess up tune length calculations
+= 0.1.2 =
+* fix version number
