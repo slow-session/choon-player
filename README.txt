@@ -102,6 +102,3 @@ Irish, Scots Gaelic etc
 
 = 0.1.0 =
 * added support for a simple ABC player with similar features to the MP3 player
-
-
-
