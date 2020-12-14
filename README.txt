@@ -107,7 +107,10 @@ they mess up tune length calculations
 = 0.1.2 =
 * fix version number
 
+= 0.1.3 =
+* add to documentation
+
 == Upgrade Notice ==
 
-= 0.1.2 =
-* fix version number
+= 0.1.3 =
+* add to documentation
