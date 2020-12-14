@@ -104,7 +104,7 @@ function choon_create_player( $atts = [], $content ) {
   
     // Make a new div for each tune on a page
     // Lots of players on a page are not a good idea!
-    $output = '<!-- Start of Choon MP3 Player code -->' . "\n";
+    $output .= '<!-- Start of Choon MP3 Player code -->' . "\n";
     $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
     $output .= 'choonMP3Player' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' . "\n";
