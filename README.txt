@@ -1,6 +1,5 @@
 === Choon Player ===
 Contributors: asjl
-Donate link: https://www.irishmusic.org.nz/make-a-donation/
 Tags: music choon loop slow-down
 Requires at least: 5.0
 Tested up to: 5.6
@@ -22,6 +21,7 @@ Choon Player is a simple audio player that supports loops and slowing down music
 == Screenshots ==
 
 1. screenshot-1.png
+2. screenshot-2.png
 
 == Installation ==
 
@@ -29,7 +29,8 @@ Choon Player is a simple audio player that supports loops and slowing down music
 
 or
 
-* Upload the contents of this folder to  the `/wp-content/plugins/choon-player/` directory.
+* Upload the contents of the GitHub archive at
+https://github.com/slow-session/choon-player to  the `/wp-content/plugins/choon-player/` directory.
 
 Activate the plugin through the 'Plugins' menu in WordPress.
 
@@ -51,7 +52,7 @@ A pointer to an MP3 file. Other audio formats supported by the HTML5 audio playe
 
 = What can be put in the block of text that is placed in the [choon-abc] shortcode? =
 
-A block of valid ABC text. See https://thesession.org for examples.
+A block of valid ABC text. See [https://thesession.org](https://thesession.org) for examples.
 
 = What parameters may be used? =
 
@@ -61,10 +62,11 @@ At this stage, none!
 
 Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his excellent ABC Notation plugin. Any bugs or features are all my own work!
 
-The javascript code was based on the player used on the Wellington
-Irish Session website. See: https://wellington.session.nz
+The javascript code was based on the players used on the [Wellington
+Irish Sessio](https://wellington.session.nz)
 
-All the code for that site is available at: https://github.com/slow-session/wellington.session.nz
+All the code for that site is available at:
+[https://github.com/slow-session/wellington.session.nz](https://github.com/slow-session/wellington.session.nz)
 
 == Changelog ==
 

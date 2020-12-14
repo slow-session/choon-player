@@ -73,9 +73,9 @@ add_filter( 'the_posts', 'choon_conditionally_load_resources' );
 function choon_construct_audioplayer() {
     $output = '<!-- Start of Choon audioPlayer code -->'  . "\n";
     $output .= '<div id="audioPlayer"></div>' . "\n";
-    $output .='<script type="text/javascript">' . 
-'audioPlayer.innerHTML = choon.createAudioPlayer();' .
-'</script>' . "\n";
+    $output .= '<script type="text/javascript">' . "\n";
+    $output .= 'audioPlayer.innerHTML = choon.createAudioPlayer();' . "\n";
+    $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon audioPlayer code -->'  . "\n";
     
     return $output;
@@ -104,13 +104,13 @@ function choon_create_player( $atts = [], $content ) {
   
     // Make a new div for each tune on a page
     // Lots of players on a page are not a good idea!
-    $output .= '<!-- Start of Choon MP3 Player code -->';
+    $output = '<!-- Start of Choon MP3 Player code -->' . "\n";
     $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
-    $output .= '<script type="text/javascript">' .
-'choonMP3Player' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' .
-'choon.createAudioSliders("' . $tune_id . '");' .
-'</script>' . "\n";
-    $output .= '<!-- End of Choon MP3 Player code -->';
+    $output .= '<script type="text/javascript">' . "\n";
+    $output .= 'choonMP3Player' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' . "\n";
+    $output .= 'choon.createAudioSliders("' . $tune_id . '");' . "\n";
+    $output .= '</script>' . "\n";
+    $output .= '<!-- End of Choon MP3 Player code -->' . "\n";
 
     return $output;
 }
@@ -123,17 +123,17 @@ function choon_abc_create_player( $atts = [], $content ) {
     static $tune_id = 0;
     $tune_id++;
   
+    $output = '<!-- Start of Choon ABC Player code -->' . "\n";
     // Make a textarea for each tune
     $textArea = "choonTextArea" . $tune_id;
-    $output .= '<!-- Start of Choon ABC Player code -->';
-    $output .= '<textarea id="' . $textArea . '" style="display:none;">' . strip_tags($content) . '</textarea>';
+    $output .= '<textarea id="' . $textArea . '" style="display:none;">' . strip_tags($content) . '</textarea>' . "\n";;
     // Make a new div for each tune on a page
     $output .= '<div id="choonABCplayer' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
     $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
     $output .= 'choon_abc.createABCSliders("' . $textArea . '", "' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
-    $output .= '<!-- End of choon-abc MP3 Player code -->';
+    $output .= '<!-- End of choon-abc MP3 Player code -->' . "\n";
 
     return $output;
 }
