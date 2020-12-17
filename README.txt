@@ -63,7 +63,7 @@ At this stage, none!
 Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his excellent ABC Notation plugin. Any bugs or features are all my own work!
 
 The javascript code was based on the players used on the [Wellington
-Irish Sessio](https://wellington.session.nz)
+Irish Session](https://wellington.session.nz)
 
 All the code for that site is available at:
 [https://github.com/slow-session/wellington.session.nz](https://github.com/slow-session/wellington.session.nz)
