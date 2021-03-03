@@ -63,7 +63,7 @@ At this stage, none!
 Special thanks to Paul Rosen for all his work on abcjs. The WordPress plugin parts of this code were based on his excellent ABC Notation plugin. Any bugs or features are all my own work!
 
 The javascript code was based on the players used on the [Wellington
-Irish Session](https://wellington.session.nz)
+Irish Sessio](https://wellington.session.nz)
 
 All the code for that site is available at:
 [https://github.com/slow-session/wellington.session.nz](https://github.com/slow-session/wellington.session.nz)
@@ -110,11 +110,11 @@ they mess up tune length calculations
 = 0.1.3 =
 * add to documentation
 
-= 0.1.4 =
-* changes to allow multiple players on a page
+= 0.2.0 =
+* upgrade code to allow more than one instance of the shortcodes of each page
 
 == Upgrade Notice ==
 
-= 0.1.4 =
-* changes to allow multiple players on a page
+= 0.2.0 =
+* upgrade code to allow more than one instance of the shortcodes of each page
 

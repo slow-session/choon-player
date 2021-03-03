@@ -1,14 +1,12 @@
 /*
  * Controls for the abc  player
  *
- * Version: 2.1
- * Date: 25 Nov 2020
+ * Version: 2.2
+ * Date: 4 Mar 2021
  *
- * Developed as part of websites for https://wellington.session.nz
+ * Developed originally as part of websites for https://wellington.session.nz
  * by Ted Cizadlo and Andy Linton
- * Code available at:
- * https://github.com/slow-session/wellington.session.nz/blob/master/js/abcplayer.js
- * Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) Licence.
+ * 
  */
 const choon_abc = (function () {
     let abcStopped = false;
@@ -60,7 +58,7 @@ const choon_abc = (function () {
      * Play an ABC tune when the button gets pushed
      */
     function playABC(textArea, tuneID, bpm) {
-        // if there is more thant one tune on the page
+        // if there is more than one tune on the page
         // we need to reset it if it has been played
         if (previousTuneID && previousTuneID != tuneID) {
             let playButton = document.getElementById(`playABC${previousTuneID}`);
@@ -68,7 +66,7 @@ const choon_abc = (function () {
                 playButton.className = "";
                 playButton.className = "choon-playButton";
             }
-            currentSpeedSlider.noUiSlider.off('change');
+            currentSpeedSlider.noUiSlider.off("change");
             // Stop any current player
             stopABCplayer();
         }

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Choon Player
-Version: 0.1.4
+Version: 0.2.0
 Description: Play tunes in a loop with a slow down option - good for learning Irish trad. Add a tune by pasting a URL pointing to an MP3 recording in a shortcode <strong>[choon]</strong> or by pasting the ABC notation for the tune in the shortcode <strong>[choon-abc]</strong>.
 Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
@@ -110,9 +110,9 @@ function choon_create_player($atts = [], $content)
     // Make a new div for each tune on a page
     // Lots of players on a page are not a good idea!
     $output .= '<!-- Start of Choon MP3 Player ' . $tune_id . ' code -->' . "\n";
-    $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
+    $output .= '<div id="choonMP3Player-' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
-    $output .= 'choonMP3Player' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' . "\n";
+    $output .= 'choonMP3Player-' . $tune_id . '.innerHTML = choon.createMP3player("' . $tune_id . '", "' . $url . '");' . "\n";
     $output .= 'choon.createAudioSliders("' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon MP3 Player ' . $tune_id . ' code -->' . "\n";
@@ -134,9 +134,9 @@ function choon_abc_create_player($atts = [], $content)
     $textArea = "choonTextArea" . $tune_id;
     $output .= '<textarea id="' . $textArea . '" style="display:none;">' . strip_tags($content) . '</textarea>' . "\n";
     // Make a new div for each tune on a page
-    $output .= '<div id="choonABCplayer' . $tune_id . '"></div>' . "\n";
+    $output .= '<div id="choonABCplayer-' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
-    $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
+    $output .= 'choonABCplayer-' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
     $output .= 'choon_abc.createABCSliders("' . $textArea . '", "' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon ABC Player ' . $tune_id . ' code -->' . "\n";

@@ -1,8 +1,8 @@
 /*
  * Audio controls for the browser audio player
  *
- * Version: 2.0
- * Date: 12 September 2020
+ * Version: 2.2
+ * Date: 4 Mar 2021
  */
 
 "use strict";
@@ -93,10 +93,6 @@ const choon = (function () {
             };
         });
 
-        speedSlider.noUiSlider.on("change", function (value) {
-            //console.log("playbackRate: " + value / 100);
-            AudioPlayer.playbackRate = value / 100;
-        });
         // How to disable handles on audioslider.
         speedSlider.noUiSlider.on("start", function (value) {
             AudioPlayer.onplaying = function () {
@@ -115,7 +111,9 @@ const choon = (function () {
         // we need to reset it if it has been played
         if (currentTuneID && currentTuneID != tuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${currentTuneID}`);
-            audioSlider.noUiSlider.off('change');
+            audioSlider.noUiSlider.off("change");
+            let speedSlider = document.getElementById(`choon-speedSliderMP3-${currentTuneID}`);
+            speedSlider.noUiSlider.off("change");
         }
         currentTuneID = tuneID;
 
@@ -229,6 +227,12 @@ const choon = (function () {
                     max: AudioPlayer.duration,
                 },
             });
+            let speedSlider = document.getElementById(`choon-speedSliderMP3-${tuneID}`);
+            speedSlider.noUiSlider.on("change", function (value) {
+            console.log("playbackRate: " + value / 100);
+            AudioPlayer.playbackRate = value / 100;
+        });
+
             resetFromToSliders(tuneID);
         }
     }
