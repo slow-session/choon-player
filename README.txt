@@ -110,7 +110,11 @@ they mess up tune length calculations
 = 0.1.3 =
 * add to documentation
 
+= 0.1.4 =
+* changes to allow multiple players on a page
+
 == Upgrade Notice ==
 
-= 0.1.3 =
-* add to documentation
+= 0.1.4 =
+* changes to allow multiple players on a page
+
