@@ -11,14 +11,16 @@
  * Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) Licence.
  */
 const choon_abc = (function () {
-    var abcStopped = false;
-    var abcCurrentTime = 0;
-    var intervalHandle;
-    var audioSlider = null;
-    var bpmReset = 0;
+    let abcStopped = false;
+    let abcCurrentTime = 0;
+    let intervalHandle;
+    let bpmReset = 0;
+    let currentAudioSlider = null;
+    let currentSpeedSlider = null;
+    let previousTuneID = null;
 
     // Select a timbre that sounds like an electric piano.
-    var instrument;
+    let instrument;
 
     function createABCplayer(textArea, tuneID, timbre) {
         /*
@@ -36,7 +38,7 @@ const choon_abc = (function () {
             </span>
         </div>
         <div>
-            <button id="playABC${tuneID}" class="choon-playButton" onclick="choon_abc.playABC(${textArea}, playABC${tuneID}, '100')"></button>
+            <button id="playABC${tuneID}" class="choon-playButton" onclick="choon_abc.playABC(${textArea}, ${tuneID}, '100')"></button>
         </div>
     </div>
 </form>`;
@@ -57,11 +59,31 @@ const choon_abc = (function () {
     /*
      * Play an ABC tune when the button gets pushed
      */
-    function playABC(textArea, playButton, bpm) {
-        /*
-         * Stop any current player
-         */
-        stopABCplayer();
+    function playABC(textArea, tuneID, bpm) {
+        // if there is more thant one tune on the page
+        // we need to reset it if it has been played
+        if (previousTuneID && previousTuneID != tuneID) {
+            let playButton = document.getElementById(`playABC${previousTuneID}`);
+            if (playButton) {
+                playButton.className = "";
+                playButton.className = "choon-playButton";
+            }
+            currentSpeedSlider.noUiSlider.off('change');
+            // Stop any current player
+            stopABCplayer();
+        }
+        previousTuneID = tuneID;
+
+        // now we can play this tune!
+        let playButton = document.getElementById(`playABC${tuneID}`);
+        currentAudioSlider = document.getElementById(`audioSliderABC${tuneID}`);
+
+        currentSpeedSlider = document.getElementById(`speedSliderABC${tuneID}`);
+        changeABCspeed(textArea, tuneID, currentSpeedSlider.noUiSlider.get());
+        currentSpeedSlider.noUiSlider.on("change", function (value) {
+            changeABCspeed(textArea, tuneID, value);
+        });
+
 
         if (playButton.className == "choon-playButton") {
             /*
@@ -82,12 +104,14 @@ const choon_abc = (function () {
             playButton.className = "";
             playButton.className = "choon-stopButton";
         } else {
+            stopABCplayer();
             playButton.className = "";
             playButton.className = "choon-playButton";
         }
     }
 
-    function changeABCspeed(textArea, playButton, bpm) {
+    function changeABCspeed(textArea, tuneID, bpm) {
+        let playButton = document.getElementById(`playABC${tuneID}`);
         /*
          * stop any current player
          */
@@ -134,7 +158,7 @@ const choon_abc = (function () {
 
         let tuneDuration = (bars * eval(meterStr) * 16 * eval(noteLenStr) * 60) / bpm;
 
-        audioSlider.noUiSlider.updateOptions({
+        currentAudioSlider.noUiSlider.updateOptions({
             range: {
                 min: 0,
                 max: tuneDuration,
@@ -164,13 +188,13 @@ const choon_abc = (function () {
             }
         );
         abcCurrentTime = 0;
-        audioSlider.noUiSlider.set(0);
+        currentAudioSlider.noUiSlider.set(0);
         intervalHandle = setInterval(nudgeABCSlider, 300);
     }
 
     function stopABCplayer() {
         clearInterval(intervalHandle);
-        audioSlider.noUiSlider.set(0);
+        currentAudioSlider.noUiSlider.set(0);
         abcStopped = true;
         instrument.silence();
     }
@@ -186,11 +210,11 @@ const choon_abc = (function () {
 
     function nudgeABCSlider() {
         abcCurrentTime += 0.3;
-        audioSlider.noUiSlider.set(abcCurrentTime);
+        currentAudioSlider.noUiSlider.set(abcCurrentTime);
     }
 
     function createABCSliders(textArea, tuneID) {
-        audioSlider = document.getElementById(`audioSliderABC${tuneID}`);
+        let audioSlider = document.getElementById(`audioSliderABC${tuneID}`);
         let speedSlider = document.getElementById(`speedSliderABC${tuneID}`);
         let playButton = document.getElementById(`playABC${tuneID}`);
         let tuneABC = document.getElementById(textArea);
@@ -213,7 +237,7 @@ const choon_abc = (function () {
             tooltips: [
                 wNumb({
                     decimals: 0,
-		    prefix: "Speed: ",
+                    prefix: "Speed: ",
                     postfix: " %",
                 }),
             ],
@@ -223,9 +247,6 @@ const choon_abc = (function () {
             },
         });
 
-        speedSlider.noUiSlider.on("change", function (value) {
-            changeABCspeed(tuneABC, playButton, value);
-        });
     }
 
     function preProcessABC(tuneABC) {
@@ -235,8 +256,8 @@ const choon_abc = (function () {
          *
          */
         const header = getHeader(tuneABC);
-	
-	// Clean out any lines of lyrics from the ABC (starts with 'w:')
+
+        // Clean out any lines of lyrics from the ABC (starts with 'w:')
         const notes = getNotes(tuneABC).match(/^(?!w:).+$/gm).join('\n');
 
         return header + "\n" + unRollABC(notes) + "\n";
@@ -470,4 +491,3 @@ const choon_abc = (function () {
 if (typeof module !== "undefined" && module.exports) {
     module.exports = choon_abc;
 }
-
