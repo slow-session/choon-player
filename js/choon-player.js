@@ -142,8 +142,8 @@ const choon = (function () {
             // These event listeners keep track of the cursor and restarts the loops
             // when needed - we don't need to set it elsewhere
             AudioPlayer.addEventListener("timeupdate", function () {
-                positionUpdate(audioSlider));
-            };
+                positionUpdate(audioSlider);
+            });
             AudioPlayer.addEventListener("ended", restartLoop);
 
             AudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
@@ -221,7 +221,7 @@ const choon = (function () {
             });
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${tuneID}`);
             speedSlider.noUiSlider.on("change", function (value) {
-            console.log("playbackRate: " + value / 100);
+            //console.log("playbackRate: " + value / 100);
             AudioPlayer.playbackRate = value / 100;
         });
 
