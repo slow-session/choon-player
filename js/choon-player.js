@@ -11,7 +11,6 @@ const choon = (function () {
 
     let beginLoopTime = 0;
     let endLoopTime = 0;
-    let previousPlayButton = null;
     let currentTuneID = null;
 
     function createMP3player(tuneID, mp3url) {
@@ -109,6 +108,9 @@ const choon = (function () {
         // if there is more than one tune on the page
         // we need to reset it if it has been played
         if (currentTuneID && currentTuneID != tuneID) {
+            let playButton = document.getElementById(`choon-playMP3-${currentTuneID}`);
+            playButton.className = "";
+            playButton.className = "choon-playButton";
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${currentTuneID}`);
             audioSlider.noUiSlider.off("change");
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${currentTuneID}`);
@@ -123,13 +125,6 @@ const choon = (function () {
 
         if (playButton.className == "choon-playButton") {
             if (!AudioPlayer.src.includes(audioSource)) {
-                if (AudioPlayer.src != null) {
-                    //reset previous audio player
-                    if (previousPlayButton != null) {
-                        previousPlayButton.className = "choon-playButton";
-                    }
-                }
-                previousPlayButton = playButton;
                 AudioPlayer.src = audioSource;
                 audioSlider.noUiSlider.updateOptions({
                     tooltips: [true, true, true],
@@ -144,9 +139,8 @@ const choon = (function () {
                 endLoopTime = AudioPlayer.duration;
             }
 
-            // This event listener keeps track of the cursor and restarts the loops
+            // These event listeners keep track of the cursor and restarts the loops
             // when needed - we don't need to set it elsewhere
-            //AudioPlayer.addEventListener("timeupdate", positionUpdate);
             AudioPlayer.addEventListener("timeupdate", function () {
                 positionUpdate(audioSlider));
             };
@@ -170,7 +164,6 @@ const choon = (function () {
     }
 
     function setFromSlider(tuneID) {
-        //console.log(tuneID, currentTuneID);
         if (tuneID == currentTuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(
@@ -182,7 +175,6 @@ const choon = (function () {
     }
 
     function setToSlider(tuneID) {
-        //console.log(tuneID, currentTuneID);
         if (tuneID == currentTuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(
@@ -194,7 +186,6 @@ const choon = (function () {
     }
 
     function resetFromToSliders(tuneID) {
-        //console.log(tuneID, currentTuneID);
         if (tuneID == currentTuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(0, 0);
