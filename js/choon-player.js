@@ -12,7 +12,6 @@ const choon = (function () {
     let beginLoopTime = 0;
     let endLoopTime = 0;
     let previousPlayButton = null;
-    let currentAudioSlider = null;
     let currentTuneID = null;
 
     function createMP3player(tuneID, mp3url) {
@@ -135,7 +134,6 @@ const choon = (function () {
                 audioSlider.noUiSlider.updateOptions({
                     tooltips: [true, true, true],
                 });
-                currentAudioSlider = audioSlider;
 
                 AudioPlayer.onloadedmetadata = function () {
                     initialiseAudioSlider(tuneID);
@@ -148,7 +146,10 @@ const choon = (function () {
 
             // This event listener keeps track of the cursor and restarts the loops
             // when needed - we don't need to set it elsewhere
-            AudioPlayer.addEventListener("timeupdate", positionUpdate);
+            //AudioPlayer.addEventListener("timeupdate", positionUpdate);
+            AudioPlayer.addEventListener("timeupdate", function () {
+                positionUpdate(audioSlider));
+            };
             AudioPlayer.addEventListener("ended", restartLoop);
 
             AudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
@@ -237,13 +238,13 @@ const choon = (function () {
         }
     }
 
-    function positionUpdate() {
+    function positionUpdate(audioSlider) {
         if (AudioPlayer.currentTime >= endLoopTime) {
-            //console.log("Current time: " + AudioPlayer.currentTime);
+            console.log("Current time: " + AudioPlayer.currentTime);
             AudioPlayer.currentTime = beginLoopTime;
-            //console.log("Reset loop start to: " + AudioPlayer.currentTime);
+            console.log("Reset loop start to: " + AudioPlayer.currentTime);
         }
-        currentAudioSlider.noUiSlider.setHandle(
+        audioSlider.noUiSlider.setHandle(
             1,
             AudioPlayer.currentTime
         );
