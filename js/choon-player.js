@@ -12,6 +12,7 @@ const choon = (function () {
     let beginLoopTime = 0;
     let endLoopTime = 0;
     let currentTuneID = null;
+    let currentAudioSlider = null;
 
     function createMP3player(tuneID, mp3url) {
         // build the MP3 player for each tune
@@ -115,7 +116,6 @@ const choon = (function () {
             audioSlider.noUiSlider.off("change");
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${currentTuneID}`);
             speedSlider.noUiSlider.off("change");
-            AudioPlayer.removeEventListener("timeupdate");
         }
         currentTuneID = tuneID;
 
@@ -141,10 +141,9 @@ const choon = (function () {
             }
 
             // These event listeners keep track of the cursor and restarts the loops
-            // when needed - we don't need to set it elsewhere
-            AudioPlayer.addEventListener("timeupdate", function () {
-                positionUpdate(audioSlider);
-            });
+            // when needed - we don't need to set it elsewhere;
+            currentAudioSlider = audioSlider;
+            AudioPlayer.addEventListener("timeupdate", positionUpdate);
             AudioPlayer.addEventListener("ended", restartLoop);
 
             AudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
@@ -230,13 +229,13 @@ const choon = (function () {
         }
     }
 
-    function positionUpdate(audioSlider) {
+    function positionUpdate() {
         if (AudioPlayer.currentTime >= endLoopTime) {
             console.log("Current time: " + AudioPlayer.currentTime);
             AudioPlayer.currentTime = beginLoopTime;
             console.log("Reset loop start to: " + AudioPlayer.currentTime);
         }
-        audioSlider.noUiSlider.setHandle(
+        currentAudioSlider.noUiSlider.setHandle(
             1,
             AudioPlayer.currentTime
         );
