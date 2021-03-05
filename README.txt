@@ -113,8 +113,10 @@ they mess up tune length calculations
 = 0.2.0 =
 * upgrade code to allow more than one instance of the shortcodes of each page
 
+= 0.2.1 =
+* remove unwanted parametes from some functions
+
 == Upgrade Notice ==
 
-= 0.2.0 =
-* upgrade code to allow more than one instance of the shortcodes of each page
-
+= 0.2.1 =
+* remove unwanted parametes from some functions

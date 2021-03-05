@@ -15,7 +15,7 @@ const choon_abc = (function () {
     let bpmReset = 0;
     let currentAudioSlider = null;
     let currentSpeedSlider = null;
-    let previousTuneID = null;
+    let currentTuneID = null;
 
     // Select a timbre that sounds like an electric piano.
     let instrument;
@@ -60,8 +60,8 @@ const choon_abc = (function () {
     function playABC(textArea, tuneID, bpm) {
         // if there is more than one tune on the page
         // we need to reset it if it has been played
-        if (previousTuneID && previousTuneID != tuneID) {
-            let playButton = document.getElementById(`playABC${previousTuneID}`);
+        if (currentTuneID && currentTuneID != tuneID) {
+            let playButton = document.getElementById(`playABC${currentTuneID}`);
             if (playButton) {
                 playButton.className = "";
                 playButton.className = "choon-playButton";
@@ -70,7 +70,7 @@ const choon_abc = (function () {
             // Stop any current player
             stopABCplayer();
         }
-        previousTuneID = tuneID;
+        currentTuneID = tuneID;
 
         // now we can play this tune!
         let playButton = document.getElementById(`playABC${tuneID}`);
