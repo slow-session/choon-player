@@ -115,6 +115,7 @@ const choon = (function () {
             audioSlider.noUiSlider.off("change");
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${currentTuneID}`);
             speedSlider.noUiSlider.off("change");
+            AudioPlayer.removeEventListener("timeupdate");
         }
         currentTuneID = tuneID;
 
