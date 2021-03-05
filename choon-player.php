@@ -137,7 +137,7 @@ function choon_abc_create_player($atts = [], $content)
     $output .= '<div id="choonABCplayer' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
     $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
-    $output .= 'choon_abc.createABCSliders("' . $textArea . '", "' . $tune_id . '");' . "\n";
+    $output .= 'choon_abc.createABCSliders("' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
 

@@ -211,11 +211,9 @@ const choon_abc = (function () {
         currentAudioSlider.noUiSlider.set(abcCurrentTime);
     }
 
-    function createABCSliders(textArea, tuneID) {
+    function createABCSliders(tuneID) {
         let audioSlider = document.getElementById(`audioSliderABC${tuneID}`);
         let speedSlider = document.getElementById(`speedSliderABC${tuneID}`);
-        let playButton = document.getElementById(`playABC${tuneID}`);
-        let tuneABC = document.getElementById(textArea);
 
         noUiSlider.create(audioSlider, {
             start: [0],
