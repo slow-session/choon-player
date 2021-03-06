@@ -9,8 +9,8 @@
 
 const choon = (function () {
 
-    let beginLoopTime = 0;
-    let endLoopTime = 0;
+    let beginLoopTime = [];
+    let endLoopTime = [];
     let currentTuneID = null;
     let currentAudioSlider = null;
 
@@ -136,8 +136,8 @@ const choon = (function () {
                 };
             }
             // Initialise the loop
-            if (!endLoopTime) {
-                endLoopTime = AudioPlayer.duration;
+            if (!endLoopTime[tuneID]) {
+                endLoopTime[tuneID] = AudioPlayer.duration;
             }
 
             // These event listeners keep track of the cursor and restarts the loops
@@ -170,7 +170,7 @@ const choon = (function () {
                 0,
                 AudioPlayer.currentTime
             );
-            beginLoopTime = AudioPlayer.currentTime;
+            beginLoopTime[tuneID] = AudioPlayer.currentTime;
         }
     }
 
@@ -181,7 +181,7 @@ const choon = (function () {
                 2,
                 AudioPlayer.currentTime
             );
-            endLoopTime = AudioPlayer.currentTime;
+            endLoopTime[tuneID] = AudioPlayer.currentTime;
         }
     }
 
@@ -189,9 +189,9 @@ const choon = (function () {
         if (tuneID == currentTuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(0, 0);
-            beginLoopTime = 0;
+            beginLoopTime[tuneID] = 0;
             audioSlider.noUiSlider.setHandle(2, AudioPlayer.duration);
-            endLoopTime = AudioPlayer.duration;
+            endLoopTime[tuneID] = AudioPlayer.duration;
         }
     }
 
@@ -204,11 +204,11 @@ const choon = (function () {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.on("change", function (values, handle) {
                 if (handle === 0) {
-                    beginLoopTime = values[0];
-                    endLoopTime = assignEndLoopTime(values[2]);
+                    beginLoopTime[tuneID] = values[0];
+                    endLoopTime[tuneID] = Math.min(OneAudioPlayer.duration, values[2]);
                 } else if (handle === 2) {
-                    beginLoopTime = values[0];
-                    endLoopTime = assignEndLoopTime(values[2]);
+                    beginLoopTime[tuneID] = values[0];
+                    endLoopTime[tuneID] = Math.min(OneAudioPlayer.duration, values[2]);
                 } else if (handle === 1) {
                     AudioPlayer.currentTime = values[1];
                 }
@@ -230,9 +230,9 @@ const choon = (function () {
     }
 
     function positionUpdate() {
-        if (AudioPlayer.currentTime >= endLoopTime) {
+        if (AudioPlayer.currentTime >= endLoopTime[currentTuneID]) {
             console.log("Current time: " + AudioPlayer.currentTime);
-            AudioPlayer.currentTime = beginLoopTime;
+            AudioPlayer.currentTime = beginLoopTime[currentTuneID];
             console.log("Reset loop start to: " + AudioPlayer.currentTime);
         }
         currentAudioSlider.noUiSlider.setHandle(
@@ -242,17 +242,9 @@ const choon = (function () {
     }
 
     function restartLoop() {
-        AudioPlayer.currentTime = beginLoopTime;
+        AudioPlayer.currentTime = beginLoopTimecurrentTuneID;
         //console.log("Restarting loop at: " + AudioPlayer.currentTime);
         AudioPlayer.play();
-    }
-
-    function assignEndLoopTime(endLoopValue) {
-        // Don't allow endLoopTime to be >= AudioPlayer.duration
-        if (endLoopValue > AudioPlayer.duration) {
-            endLoopValue = AudioPlayer.duration;
-        }
-        return endLoopValue;
     }
 
     return {
