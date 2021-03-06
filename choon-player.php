@@ -100,8 +100,8 @@ function choon_create_player($atts = [], $content)
     // the [choon] tag is used to pass in this URL
     $url = filter_var($content, FILTER_SANITIZE_URL);
 
-    static $tune_id = 0;
-    if ($tune_id == 0) {
+    static $tune_id = 1;
+    if ($tune_id == 1) {
         // create the audioplayer once
         $output = choon_construct_audioplayer();
     }
@@ -127,7 +127,7 @@ add_shortcode('choon', 'choon_create_player');
 //
 function choon_abc_create_player($atts = [], $content)
 {
-    static $tune_id = 0;
+    static $tune_id = 1;
     
     $output = '<!-- Start of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
     // Make a textarea for each tune
