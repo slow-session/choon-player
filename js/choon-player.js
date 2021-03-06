@@ -221,9 +221,9 @@ const choon = (function () {
             });
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${tuneID}`);
             speedSlider.noUiSlider.on("change", function (value) {
-            //console.log("playbackRate: " + value / 100);
-            AudioPlayer.playbackRate = value / 100;
-        });
+                //console.log("playbackRate: " + value / 100);
+                AudioPlayer.playbackRate = value / 100;
+            });
 
             resetFromToSliders(tuneID);
         }
