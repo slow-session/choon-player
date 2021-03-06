@@ -82,25 +82,25 @@ const choon = (function () {
         });
 
         audioSlider.noUiSlider.on("start", function (value) {
-            AudioPlayer.onplaying = function () {
-                AudioPlayer.pause();
+            choonAudioPlayer.onplaying = function () {
+                choonAudioPlayer.pause();
             };
         });
         audioSlider.noUiSlider.on("end", function (value) {
-            AudioPlayer.onplaying = function () {
-                AudioPlayer.play();
+            choonAudioPlayer.onplaying = function () {
+                choonAudioPlayer.play();
             };
         });
 
         // How to disable handles on audioslider.
         speedSlider.noUiSlider.on("start", function (value) {
-            AudioPlayer.onplaying = function () {
-                AudioPlayer.pause();
+            choonAudioPlayer.onplaying = function () {
+                choonAudioPlayer.pause();
             };
         });
         speedSlider.noUiSlider.on("end", function (value) {
-            AudioPlayer.onplaying = function () {
-                AudioPlayer.play();
+            choonAudioPlayer.onplaying = function () {
+                choonAudioPlayer.play();
             };
         });
     }
@@ -125,32 +125,32 @@ const choon = (function () {
 
 
         if (playButton.className == "choon-playButton") {
-            if (!AudioPlayer.src.includes(audioSource)) {
-                AudioPlayer.src = audioSource;
+            if (!choonAudioPlayer.src.includes(audioSource)) {
+                choonAudioPlayer.src = audioSource;
                 audioSlider.noUiSlider.updateOptions({
                     tooltips: [true, true, true],
                 });
 
-                AudioPlayer.onloadedmetadata = function () {
+                choonAudioPlayer.onloadedmetadata = function () {
                     initialiseAudioSlider(tuneID);
                 };
             }
             // Initialise the loop
             if (!endLoopTime) {
-                endLoopTime = AudioPlayer.duration;
+                endLoopTime = choonAudioPlayer.duration;
             }
 
             // These event listeners keep track of the cursor and restarts the loops
             // when needed - we don't need to set it elsewhere;
             currentAudioSlider = audioSlider;
-            AudioPlayer.addEventListener("timeupdate", positionUpdate);
-            AudioPlayer.addEventListener("ended", restartLoop);
+            choonAudioPlayer.addEventListener("timeupdate", positionUpdate);
+            choonAudioPlayer.addEventListener("ended", restartLoop);
 
-            AudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
+            choonAudioPlayer.playbackRate = speedSlider.noUiSlider.get() / 100;
 
             playButton.className = "";
             playButton.className = "choon-pauseButton";
-            let playPromise = AudioPlayer.play();
+            let playPromise = choonAudioPlayer.play();
             if (playPromise) {
                 playPromise.catch(function (error) {
                     console.error(error);
@@ -159,7 +159,7 @@ const choon = (function () {
         } else {
             playButton.className = "";
             playButton.className = "choon-playButton";
-            AudioPlayer.pause();
+            choonAudioPlayer.pause();
         }
     }
 
@@ -168,9 +168,9 @@ const choon = (function () {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(
                 0,
-                AudioPlayer.currentTime
+                choonAudioPlayer.currentTime
             );
-            beginLoopTime = AudioPlayer.currentTime;
+            beginLoopTime = choonAudioPlayer.currentTime;
         }
     }
 
@@ -179,9 +179,9 @@ const choon = (function () {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(
                 2,
-                AudioPlayer.currentTime
+                choonAudioPlayer.currentTime
             );
-            endLoopTime = AudioPlayer.currentTime;
+            endLoopTime = choonAudioPlayer.currentTime;
         }
     }
 
@@ -190,8 +190,8 @@ const choon = (function () {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.setHandle(0, 0);
             beginLoopTime = 0;
-            audioSlider.noUiSlider.setHandle(2, AudioPlayer.duration);
-            endLoopTime = AudioPlayer.duration;
+            audioSlider.noUiSlider.setHandle(2, choonAudioPlayer.duration);
+            endLoopTime = choonAudioPlayer.duration;
         }
     }
 
@@ -199,30 +199,30 @@ const choon = (function () {
     // Internal functions
     //
     function initialiseAudioSlider(tuneID) {
-        //console.log('initialiseAudioSlider: ' + AudioPlayer.duration);
+        //console.log('initialiseAudioSlider: ' + choonAudioPlayer.duration);
         if (tuneID == currentTuneID) {
             let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
             audioSlider.noUiSlider.on("change", function (values, handle) {
                 if (handle === 0) {
                     beginLoopTime = values[0];
-                    endLoopTime = Math.min(OneAudioPlayer.duration, values[2]);
+                    endLoopTime = Math.min(choonAudioPlayer.duration, values[2]);
                 } else if (handle === 2) {
                     beginLoopTime = values[0];
-                    endLoopTime = Math.min(OneAudioPlayer.duration, values[2]);
+                    endLoopTime = Math.min(choonAudioPlayer.duration, values[2]);
                 } else if (handle === 1) {
-                    AudioPlayer.currentTime = values[1];
+                    choonAudioPlayer.currentTime = values[1];
                 }
             });
             audioSlider.noUiSlider.updateOptions({
                 range: {
                     min: 0,
-                    max: AudioPlayer.duration,
+                    max: choonAudioPlayer.duration,
                 },
             });
             let speedSlider = document.getElementById(`choon-speedSliderMP3-${tuneID}`);
             speedSlider.noUiSlider.on("change", function (value) {
                 //console.log("playbackRate: " + value / 100);
-                AudioPlayer.playbackRate = value / 100;
+                choonAudioPlayer.playbackRate = value / 100;
             });
 
             resetFromToSliders(tuneID);
@@ -230,21 +230,21 @@ const choon = (function () {
     }
 
     function positionUpdate() {
-        if (AudioPlayer.currentTime >= endLoopTime) {
-            console.log("Current time: " + AudioPlayer.currentTime);
-            AudioPlayer.currentTime = beginLoopTime;
-            console.log("Reset loop start to: " + AudioPlayer.currentTime);
+        if (choonAudioPlayer.currentTime >= endLoopTime) {
+            console.log("Current time: " + choonAudioPlayer.currentTime);
+            choonAudioPlayer.currentTime = beginLoopTime;
+            console.log("Reset loop start to: " + choonAudioPlayer.currentTime);
         }
         currentAudioSlider.noUiSlider.setHandle(
             1,
-            AudioPlayer.currentTime
+            choonAudioPlayer.currentTime
         );
     }
 
     function restartLoop() {
-        AudioPlayer.currentTime = beginLoopTime;
-        //console.log("Restarting loop at: " + AudioPlayer.currentTime);
-        AudioPlayer.play();
+        choonAudioPlayer.currentTime = beginLoopTime;
+        //console.log("Restarting loop at: " + choonAudioPlayer.currentTime);
+        choonAudioPlayer.play();
     }
 
     return {

@@ -75,7 +75,7 @@ function choon_construct_audioplayer()
 {
     $output = '<!-- Start of Choon audioPlayer code -->' . "\n";
     $output .= '<div id="player">' . "\n";
-    $output .= '    <audio id="AudioPlayer">' . "\n";
+    $output .= '    <audio id="choonAudioPlayer">' . "\n";
     $output .= '        <source id="choon-MP3Source" type="audio/mp3">' . "\n";
     $output .= '        Your browser does not support the audio format.' . "\n";
     $output .= '    </audio>' . "\n";
