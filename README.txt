@@ -1,8 +1,8 @@
 === Choon Player ===
 Contributors: asjl
 Tags: music choon loop slow-down
-Requires at least: 5.0
-Tested up to: 5.6
+Requires at least: 5.5
+Tested up to: 5.7
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -116,7 +116,10 @@ they mess up tune length calculations
 = 0.2.1 =
 * remove unwanted parametes from some functions
 
+= 0.2.2 =
+* tested against WordPress 5.7
+
 == Upgrade Notice ==
 
-= 0.2.1 =
-* remove unwanted parametes from some functions
+= 0.2.2 =
+* tested against WordPress 5.7

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Choon Player
-Version: 0.2.1
+Version: 0.2.2
 Description: Play tunes in a loop with a slow down option - good for learning Irish trad. Add a tune by pasting a URL pointing to an MP3 recording in a shortcode <strong>[choon]</strong> or by pasting the ABC notation for the tune in the shortcode <strong>[choon-abc]</strong>.
 Plugin URI: https://github.com/slow-session/choon-player
 Author: Andy Linton
@@ -105,8 +105,7 @@ function choon_create_player($atts = [], $content)
         // create the audioplayer once
         $output = choon_construct_audioplayer();
     }
-    $tune_id++;
-
+    
     // Make a new div for each tune on a page
     // Lots of players on a page are not a good idea!
     $output .= '<!-- Start of Choon MP3 Player ' . $tune_id . ' code -->' . "\n";
@@ -116,6 +115,8 @@ function choon_create_player($atts = [], $content)
     $output .= 'choon.createAudioSliders("' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon MP3 Player ' . $tune_id . ' code -->' . "\n";
+
+    $tune_id++;
 
     return $output;
 }
@@ -127,8 +128,7 @@ add_shortcode('choon', 'choon_create_player');
 function choon_abc_create_player($atts = [], $content)
 {
     static $tune_id = 0;
-    $tune_id++;
-
+    
     $output = '<!-- Start of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
     // Make a textarea for each tune
     $textArea = "choonTextArea" . $tune_id;
@@ -140,6 +140,8 @@ function choon_abc_create_player($atts = [], $content)
     $output .= 'choon_abc.createABCSliders("' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
+
+    $tune_id++;
 
     return $output;
 }
