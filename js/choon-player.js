@@ -231,9 +231,9 @@ const choon = (function () {
 
     function positionUpdate() {
         if (choonAudioPlayer.currentTime >= endLoopTime) {
-            console.log("Current time: " + choonAudioPlayer.currentTime);
+            //console.log("Current time: " + choonAudioPlayer.currentTime);
             choonAudioPlayer.currentTime = beginLoopTime;
-            console.log("Reset loop start to: " + choonAudioPlayer.currentTime);
+            //console.log("Reset loop start to: " + choonAudioPlayer.currentTime);
         }
         currentAudioSlider.noUiSlider.setHandle(
             1,
