@@ -136,10 +136,10 @@ const choon_abc = (function () {
 
     function setTuneDuration(tuneABC, bpm) {
         // calculate number of bars
-	let bars = tuneABC.match(/\|/g || []).length;
+        let bars = tuneABC.match(/\|/g || []).length;
         bars = Math.floor(bars / 8) * 8;
-        
-	// Get the meter from the ABC
+
+        // Get the meter from the ABC
         let meterStr = getABCheaderValue("M:", tuneABC);
         if (meterStr == "C") {
             meterStr = "4/4";
@@ -147,10 +147,10 @@ const choon_abc = (function () {
         if (meterStr == "C|") {
             meterStr = "2/2";
         }
-	if (!meterStr) {
-	    console.error("M: not defined - defaulted to 4/4");
-	    meterStr = "4/4";
-	}
+        if (!meterStr) {
+            console.error("M: not defined - defaulted to 4/4");
+            meterStr = "4/4";
+        }
 
         let noteLenStr = getABCheaderValue("L:", tuneABC);
         if (!noteLenStr) {
@@ -249,11 +249,11 @@ const choon_abc = (function () {
     }
 
     function preProcessABC(tuneABC) {
-	/*
+        /*
          * Our simple ABC player doesn't handle repeats well.
          * unRollABC expands the repeats in the ABC so that things play better.
          */
-	 
+
         // Clean out any lines of lyrics from the ABC (starts with 'w:')
         const notes = tuneABC.match(/^(?!w:).+$/gm).join('\n');
         return unRollABC(notes) + "\n";
@@ -265,11 +265,11 @@ const choon_abc = (function () {
 
         const lines = tuneABC.split(/[\r\n]+/).map(line => line.trim());
         const keyIdx = lines.findIndex(line => line.match(KEYWORD_PATTERN));
-	if (keyIdx < 0) {
+        if (keyIdx < 0) {
             return '';
         } else {
             return lines[keyIdx].split(":")[1].trim();
-	}
+        }
     }
 
     function unRollABC(abcNotes) {
@@ -442,15 +442,15 @@ const choon_abc = (function () {
         );
 
         // remove chords
-	expandedABC = expandedABC.replace(/[“”]/g, "\"");
+        expandedABC = expandedABC.replace(/[“”]/g, "\"");
         expandedABC = expandedABC.replace(/".*?"/g, "");
         // insert blank line before T: field
-	expandedABC = expandedABC.replace(/\|[\n\r]T:/g, "|\n\nT:");
-	// collapse note lines into one
-	expandedABC = expandedABC.replace(/\|[\n\r]/g, "|");
+        expandedABC = expandedABC.replace(/\|[\n\r]T:/g, "|\n\nT:");
+        // collapse note lines into one
+        expandedABC = expandedABC.replace(/\|[\n\r]/g, "|");
 
         // Clean up the ABC repeat markers - we don't need them now!
-	expandedABC = expandedABC.replace(/:\|/g, "|");
+        expandedABC = expandedABC.replace(/:\|/g, "|");
         expandedABC = expandedABC.replace(/\|:/g, "|");
         expandedABC = expandedABC.replace(/::/g, "|");
         expandedABC = expandedABC.replace(/\|+/g, "|");
