@@ -136,11 +136,10 @@ const choon_abc = (function () {
 
     function setTuneDuration(tuneABC, bpm) {
         // calculate number of bars
-        let bars;
-        bars = tuneABC.split("|").length;
-        bars = Math.round(bars / 8) * 8;
-
-        // Get the meter from the ABC
+	let bars = tuneABC.match(/\|/g || []).length;
+        bars = Math.floor(bars / 8) * 8;
+        
+	// Get the meter from the ABC
         let meterStr = getABCheaderValue("M:", tuneABC);
         if (meterStr == "C") {
             meterStr = "4/4";
@@ -148,6 +147,10 @@ const choon_abc = (function () {
         if (meterStr == "C|") {
             meterStr = "2/2";
         }
+	if (!meterStr) {
+	    console.error("M: not defined - defaulted to 4/4");
+	    meterStr = "4/4";
+	}
 
         let noteLenStr = getABCheaderValue("L:", tuneABC);
         if (!noteLenStr) {
@@ -246,42 +249,14 @@ const choon_abc = (function () {
     }
 
     function preProcessABC(tuneABC) {
-        /*
+	/*
          * Our simple ABC player doesn't handle repeats well.
-         * This function unrolls the ABC so that things play better.
-         *
+         * unRollABC expands the repeats in the ABC so that things play better.
          */
-        const header = getHeader(tuneABC);
-
+	 
         // Clean out any lines of lyrics from the ABC (starts with 'w:')
-        const notes = getNotes(tuneABC).match(/^(?!w:).+$/gm).join('\n');
-
-        return header + "\n" + unRollABC(notes) + "\n";
-    }
-
-    const KEY_LINE_PATTERN = /^\s*K:/;
-
-    /** 
-     * Extract the header from an ABC tune string, matching lines up to 
-     * and including key specification.  Gracefully assume presence of X and T
-     * fields.
-     * http://abcnotation.com/wiki/abc:standard:v2.1#tune_header_definition
-     */
-    function getHeader(tuneABC) {
-        const lines = tuneABC.split(/[\r\n]+/).map(line => line.trim());
-        const keyIdx = lines.findIndex(line => line.match(KEY_LINE_PATTERN));
-        if (keyIdx < 0) {
-            return '';
-        } else {
-            return lines.splice(0, keyIdx + 1).join('\n').trim();
-        }
-    }
-
-    /** Extract the notes from an ABC tune string, by removing the header. */
-    function getNotes(tuneABC) {
-        const lines = tuneABC.split(/[\r\n]+/).map(line => line.trim());
-        const keyIdx = lines.findIndex(line => line.match(KEY_LINE_PATTERN));
-        return lines.splice(keyIdx + 1, lines.length).join('\n').trim();
+        const notes = tuneABC.match(/^(?!w:).+$/gm).join('\n');
+        return unRollABC(notes) + "\n";
     }
 
     function getABCheaderValue(key, tuneABC) {
@@ -290,8 +265,11 @@ const choon_abc = (function () {
 
         const lines = tuneABC.split(/[\r\n]+/).map(line => line.trim());
         const keyIdx = lines.findIndex(line => line.match(KEYWORD_PATTERN));
-
-        return lines[keyIdx].split(":")[1].trim();
+	if (keyIdx < 0) {
+            return '';
+        } else {
+            return lines[keyIdx].split(":")[1].trim();
+	}
     }
 
     function unRollABC(abcNotes) {
@@ -463,10 +441,16 @@ const choon_abc = (function () {
             sortedTokenLocations[sortedTokens.length - 1] - pos
         );
 
-        /*
-         * Clean up the ABC repeat markers - we don't need them now!
-         */
-        expandedABC = expandedABC.replace(/:\|/g, "|");
+        // remove chords
+	expandedABC = expandedABC.replace(/[“”]/g, "\"");
+        expandedABC = expandedABC.replace(/".*?"/g, "");
+        // insert blank line before T: field
+	expandedABC = expandedABC.replace(/\|[\n\r]T:/g, "|\n\nT:");
+	// collapse note lines into one
+	expandedABC = expandedABC.replace(/\|[\n\r]/g, "|");
+
+        // Clean up the ABC repeat markers - we don't need them now!
+	expandedABC = expandedABC.replace(/:\|/g, "|");
         expandedABC = expandedABC.replace(/\|:/g, "|");
         expandedABC = expandedABC.replace(/::/g, "|");
         expandedABC = expandedABC.replace(/\|+/g, "|");
