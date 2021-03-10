@@ -18,6 +18,7 @@ const choon_abc = (function () {
     let currentAudioSlider = null;
     let currentSpeedSlider = null;
     let currentTuneID = null;
+    let tuneABC = null;
 
     // Select a timbre that sounds like an electric piano.
     let instrument;
@@ -61,7 +62,7 @@ const choon_abc = (function () {
      */
     function playABC(textArea, tuneID, bpm) {
         // if there is more than one tune on the page
-        // we need to reset it if it has been played
+        // we need to reset things if a different has been played
         if (currentTuneID && currentTuneID != tuneID) {
             let playButton = document.getElementById(`playABC${currentTuneID}`);
             if (playButton) {
@@ -71,6 +72,7 @@ const choon_abc = (function () {
             currentSpeedSlider.noUiSlider.off("change");
             // Stop any current player
             stopABCplayer();
+            tuneABC = null;
         }
         currentTuneID = tuneID;
 
@@ -79,9 +81,9 @@ const choon_abc = (function () {
         currentAudioSlider = document.getElementById(`audioSliderABC${tuneID}`);
 
         currentSpeedSlider = document.getElementById(`speedSliderABC${tuneID}`);
-        changeABCspeed(textArea, tuneID, currentSpeedSlider.noUiSlider.get());
+        changeABCspeed(tuneID, currentSpeedSlider.noUiSlider.get());
         currentSpeedSlider.noUiSlider.on("change", function (value) {
-            changeABCspeed(textArea, tuneID, value);
+            changeABCspeed(tuneID, value);
         });
 
 
@@ -90,7 +92,9 @@ const choon_abc = (function () {
              * Our simple ABC player doesn't handle repeats well.
              * This function unrolls the ABC so that things play better.
              */
-            let tuneABC = preProcessABC(textArea.value);
+            if (tuneABC == null) {
+                tuneABC = preProcessABC(textArea.value);
+            }
 
             // speed was reset before play started
             if (bpmReset) {
@@ -110,7 +114,7 @@ const choon_abc = (function () {
         }
     }
 
-    function changeABCspeed(textArea, tuneID, bpm) {
+    function changeABCspeed(tuneID, bpm) {
         let playButton = document.getElementById(`playABC${tuneID}`);
         /*
          * stop any current player
@@ -122,12 +126,6 @@ const choon_abc = (function () {
 
         // if there's an active player, restart it at the new speed
         if (playButton.className == "choon-stopButton") {
-            /*
-             * Our simple ABC player doesn't handle repeats well.
-             * This function unrolls the ABC so that things play better.
-             */
-            let tuneABC = preProcessABC(textArea.value);
-
             // Change the speed of playback
             setTuneDuration(tuneABC, bpm);
 
@@ -250,17 +248,6 @@ const choon_abc = (function () {
 
     }
 
-    function preProcessABC(tuneABC) {
-        /*
-         * Our simple ABC player doesn't handle repeats well.
-         * unRollABC expands the repeats in the ABC so that things play better.
-         */
-
-        // Clean out any lines of lyrics from the ABC (starts with 'w:')
-        const notes = tuneABC.match(/^(?!w:).+$/gm).join('\n');
-        return unRollABC(notes) + "\n";
-    }
-
     function getABCheaderValue(key, tuneABC) {
         // Extract the value of one of the ABC keywords e.g. T: Out on the Ocean
         const KEYWORD_PATTERN = new RegExp(`^\\s*${key}`);
@@ -274,15 +261,23 @@ const choon_abc = (function () {
         }
     }
 
-    function unRollABC(abcNotes) {
-        let fEnding = /\|1/g,
+    function preProcessABC(tuneABC) {
+        /*
+         * Our simple ABC player doesn't handle repeats well.
+         * preProcessABC expands the repeats in the ABC so that things play better.
+         */
+
+        // Clean out any lines of lyrics from the ABC (starts with 'w:')
+        const abcNotes = tuneABC.match(/^(?!w:).+$/gm).join('\n');
+  
+        let firstBar = /\|/g,
+            fEnding = /\|1/g,
+            fEnding2 = /\[1/g,
             sEnding = /\|2/g,
+            sEnding2 = /\[2/g,
             lRepeat = /\|:/g,
             rRepeat = /:\|/g,
             dblBar = /\|\|/g,
-            firstBar = /\|/g;
-        let fEnding2 = /\[1/g,
-            sEnding2 = /\[2/g,
             dblBar2 = /\|\]/g;
         let match,
             fBarPos = [],
@@ -296,7 +291,7 @@ const choon_abc = (function () {
             tokenCount = 0,
             sortedTokens = [],
             sortedTokenLocations = [];
-        let pos = 0;
+        let position = 0;
         let expandedABC = "";
 
         while ((match = firstBar.exec(abcNotes)) != null) {
@@ -362,7 +357,6 @@ const choon_abc = (function () {
             sortedTokens[i] = tokenString[indices[i]];
             sortedTokenLocations[i] = tokenLocations[indices[i]];
         }
-        pos = 0;
 
         for (let i = 0; i < sortedTokens.length; i++) {
             // safety check - is 1000 enough? ASJL 2020/11/23
@@ -372,7 +366,7 @@ const choon_abc = (function () {
             // find next repeat or second ending
             if (sortedTokens[i] == "rr" || sortedTokens[i] == "se") {
                 //notes from last location to rr or se
-                expandedABC += abcNotes.substr(pos, sortedTokenLocations[i] - pos);
+                expandedABC += abcNotes.substr(position, sortedTokenLocations[i] - position);
                 // march backward from there
                 for (let j = i - 1; j >= 0; j--) {
                     // check for likely loop point
@@ -383,17 +377,17 @@ const choon_abc = (function () {
                         sortedTokens[j] == "lr"
                     ) {
                         // mark loop beginning point
-                        pos = sortedTokenLocations[j];
+                        position = sortedTokenLocations[j];
                         // walk forward from there
                         for (let k = j + 1; k < sortedTokens.length; k++) {
                             // walk to likely stopping point (first ending or repeat)
                             if (sortedTokens[k] == "fe" || sortedTokens[k] == "rr") {
                                 expandedABC += abcNotes.substr(
-                                    pos,
-                                    sortedTokenLocations[k] - pos
+                                    position,
+                                    sortedTokenLocations[k] - position
                                 );
                                 // mark last position encountered
-                                pos = sortedTokenLocations[k];
+                                position = sortedTokenLocations[k];
                                 // consume tokens from big loop
                                 i = j + 1;
                                 // if we got to a first ending we have to skip it..
@@ -411,7 +405,7 @@ const choon_abc = (function () {
                                                         sortedTokenLocations[m] - sortedTokenLocations[l]
                                                     );
                                                     //mark most forward progress
-                                                    pos = sortedTokenLocations[m];
+                                                    position = sortedTokenLocations[m];
                                                     // consume the tokens from the main loop
                                                     i = m + 1;
                                                     // quit looking
@@ -434,7 +428,7 @@ const choon_abc = (function () {
             } // END of check for likely loop point
         } // END of for i loop
 
-        expandedABC += abcNotes.substr(pos, sortedTokenLocations[sortedTokens.length - 1] - pos);
+        expandedABC += abcNotes.substr(position, sortedTokenLocations[sortedTokens.length - 1] - position);
 
         // remove chords
         expandedABC = expandedABC.replace(/[“”]/g, "\"");
@@ -452,8 +446,10 @@ const choon_abc = (function () {
         expandedABC = expandedABC.replace(/:$/, "|");
         expandedABC = expandedABC.replace(/:"$/, "|");
 
-        console.log(expandedABC);
-        return expandedABC;
+        //console.log(expandedABC);
+        
+    
+        return expandedABC + "\n";
     }
 
     return {
