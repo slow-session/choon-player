@@ -1,13 +1,15 @@
 /*
  * Controls for the abc  player
  *
- * Version: 2.2
+ * Version: 2.3
  * Date: 4 Mar 2021
  *
  * Developed originally as part of websites for https://wellington.session.nz
  * by Ted Cizadlo and Andy Linton
  * 
  */
+"use strict";
+
 const choon_abc = (function () {
     let abcStopped = false;
     let abcCurrentTime = 0;
@@ -294,11 +296,7 @@ const choon_abc = (function () {
             tokenCount = 0,
             sortedTokens = [],
             sortedTokenLocations = [];
-        let pos = 0,
-            i = 0,
-            k = 0,
-            l = 0,
-            m = 0;
+        let pos = 0;
         let expandedABC = "";
 
         while ((match = firstBar.exec(abcNotes)) != null) {
@@ -360,13 +358,13 @@ const choon_abc = (function () {
             return tokenLocations[a] - tokenLocations[b];
         });
 
-        for (j = 0; j < tokenLocations.length; j++) {
-            sortedTokens[j] = tokenString[indices[j]];
-            sortedTokenLocations[j] = tokenLocations[indices[j]];
+        for (let i = 0; i < tokenLocations.length; i++) {
+            sortedTokens[i] = tokenString[indices[i]];
+            sortedTokenLocations[i] = tokenLocations[indices[i]];
         }
         pos = 0;
 
-        for (i = 0; i < sortedTokens.length; i++) {
+        for (let i = 0; i < sortedTokens.length; i++) {
             // safety check - is 1000 enough? ASJL 2020/11/23
             if (expandedABC.length > 1000) {
                 break;
@@ -376,35 +374,35 @@ const choon_abc = (function () {
                 //notes from last location to rr or se
                 expandedABC += abcNotes.substr(pos, sortedTokenLocations[i] - pos);
                 // march backward from there
-                for (k = i - 1; k >= 0; k--) {
+                for (let j = i - 1; j >= 0; j--) {
                     // check for likely loop point
                     if (
-                        sortedTokens[k] == "se" ||
-                        sortedTokens[k] == "rr" ||
-                        sortedTokens[k] == "fb" ||
-                        sortedTokens[k] == "lr"
+                        sortedTokens[j] == "se" ||
+                        sortedTokens[j] == "rr" ||
+                        sortedTokens[j] == "fb" ||
+                        sortedTokens[j] == "lr"
                     ) {
                         // mark loop beginning point
-                        pos = sortedTokenLocations[k];
+                        pos = sortedTokenLocations[j];
                         // walk forward from there
-                        for (j = k + 1; j < sortedTokens.length; j++) {
+                        for (let k = j + 1; k < sortedTokens.length; k++) {
                             // walk to likely stopping point (first ending or repeat)
-                            if (sortedTokens[j] == "fe" || sortedTokens[j] == "rr") {
+                            if (sortedTokens[k] == "fe" || sortedTokens[k] == "rr") {
                                 expandedABC += abcNotes.substr(
                                     pos,
-                                    sortedTokenLocations[j] - pos
+                                    sortedTokenLocations[k] - pos
                                 );
                                 // mark last position encountered
-                                pos = sortedTokenLocations[j];
+                                pos = sortedTokenLocations[k];
                                 // consume tokens from big loop
                                 i = j + 1;
                                 // if we got to a first ending we have to skip it..
-                                if (sortedTokens[j] == "fe") {
+                                if (sortedTokens[k] == "fe") {
                                     // walk forward from here until the second ending
-                                    for (l = j; l < sortedTokens.length; l++) {
+                                    for (let l = k; l < sortedTokens.length; l++) {
                                         if (sortedTokens[l] == "se") {
                                             // look for end of second ending
-                                            for (m = l; m < sortedTokens.length; m++) {
+                                            for (let m = l; m < sortedTokens.length; m++) {
                                                 // a double bar marks the end of a second ending
                                                 if (sortedTokens[m] == "db") {
                                                     // record second ending
@@ -429,17 +427,14 @@ const choon_abc = (function () {
                                 } // END of first ending we have to skip it
                                 break;
                             }
-                        } // END of for j loop
+                        } // END of for k loop
                         break;
                     } // END of check for likely loop point
-                } // END of for k loop
+                } // END of for j loop
             } // END of check for likely loop point
         } // END of for i loop
 
-        expandedABC += abcNotes.substr(
-            pos,
-            sortedTokenLocations[sortedTokens.length - 1] - pos
-        );
+        expandedABC += abcNotes.substr(pos, sortedTokenLocations[sortedTokens.length - 1] - pos);
 
         // remove chords
         expandedABC = expandedABC.replace(/[“”]/g, "\"");
@@ -457,6 +452,7 @@ const choon_abc = (function () {
         expandedABC = expandedABC.replace(/:$/, "|");
         expandedABC = expandedABC.replace(/:"$/, "|");
 
+        console.log(expandedABC);
         return expandedABC;
     }
 

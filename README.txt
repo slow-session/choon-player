@@ -119,7 +119,10 @@ they mess up tune length calculations
 = 0.2.2 =
 * tested against WordPress 5.7
 
+= 0.2.3 =
+* Improve playback of multiple ABC tunes in a single [choon-abc] tag
+
 == Upgrade Notice ==
 
-= 0.2.2 =
-* tested against WordPress 5.7
+= 0.2.3 =
+* Improve playback of multiple ABC tunes in a single [choon-abc] tag
