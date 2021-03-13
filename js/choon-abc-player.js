@@ -447,7 +447,6 @@ const choon_abc = (function () {
         expandedABC = expandedABC.replace(/:"$/, "|");
 
         //console.log(expandedABC);
-        
     
         return expandedABC + "\n";
     }
