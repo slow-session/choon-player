@@ -107,7 +107,6 @@ function choon_create_player($atts = [], $content)
     }
     
     // Make a new div for each tune on a page
-    // Lots of players on a page are not a good idea!
     $output .= '<!-- Start of Choon MP3 Player ' . $tune_id . ' code -->' . "\n";
     $output .= '<div id="choonMP3Player' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
@@ -131,12 +130,12 @@ function choon_abc_create_player($atts = [], $content)
     
     $output = '<!-- Start of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
     // Make a textarea for each tune
-    $textArea = "choonTextArea" . $tune_id;
-    $output .= '<textarea id="' . $textArea . '" style="display:none;">' . strip_tags($content) . '</textarea>' . "\n";
+    $textAreaID = "choonTextArea" . $tune_id;
+    $output .= '<textarea id="' . $textAreaID . '" style="display:none;">' . strip_tags($content) . '</textarea>' . "\n";
     // Make a new div for each tune on a page
     $output .= '<div id="choonABCplayer' . $tune_id . '"></div>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
-    $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textArea . '", "' . $tune_id . '", "piano");' . "\n";
+    $output .= 'choonABCplayer' . $tune_id . '.innerHTML = choon_abc.createABCplayer("' . $textAreaID . '", "' . $tune_id . '", "piano");' . "\n";
     $output .= 'choon_abc.createABCSliders("' . $tune_id . '");' . "\n";
     $output .= '</script>' . "\n";
     $output .= '<!-- End of Choon ABC Player ' . $tune_id . ' code -->' . "\n";
