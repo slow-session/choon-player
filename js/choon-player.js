@@ -123,10 +123,10 @@ const choon = (function () {
         let audioSlider = document.getElementById(`choon-audioSliderMP3-${tuneID}`);
         let speedSlider = document.getElementById(`choon-speedSliderMP3-${tuneID}`);
 
-
         if (playButton.className == "choon-playButton") {
             if (!choonAudioPlayer.src.includes(audioSource)) {
                 choonAudioPlayer.src = audioSource;
+                choonAudioPlayer.load();
                 audioSlider.noUiSlider.updateOptions({
                     tooltips: [true, true, true],
                 });
