@@ -122,7 +122,10 @@ they mess up tune length calculations
 = 0.2.3 =
 * Improve playback of multiple ABC tunes in a single [choon-abc] tag
 
+= 0.2.4 =
+* Explicitly load MP3 file on playback - avoids long session with webserver
+
 == Upgrade Notice ==
 
-= 0.2.3 =
-* Improve playback of multiple ABC tunes in a single [choon-abc] tag
+= 0.2.4 =
+* Explicitly load MP3 file on playback - avoids long session with webserver
